@@ -12,6 +12,7 @@ urlpatterns = patterns('',
 
                        url(r'^admin/', include(admin.site.urls)),
                        url(r"^$", "main.views.index", name="index"),
+                       url(r"^upload/$", "main.views.upload", name="upload"),
                       )
 
 if settings.DEBUG:

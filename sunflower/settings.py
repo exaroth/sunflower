@@ -19,7 +19,6 @@ ROOT_DIR = os.path.realpath(os.path.join(BASE_DIR, os.path.pardir))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '66-+z%*s)*e)$^e04l2(#y)$uj(20yi7+cjfv0m#ox_*6_8tcb'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 

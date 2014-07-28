@@ -24,8 +24,8 @@ class Image(models.Model):
 
     title = models.CharField(max_length=144, blank=False, db_index=True)
     description = models.TextField(blank=True)
-    uploader = models.ForeignKey(User, null=False)
-    path = models.ImageField(upload_to="images")
+    uploader = models.ForeignKey(User)
+    path = models.ImageField(upload_to="images", blank=False)
     thumb_path = models.ImageField(upload_to="thumbs")
     modified = models.DateTimeField(auto_now=True, auto_now_add=True)
 
