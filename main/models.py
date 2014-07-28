@@ -7,7 +7,13 @@ from django.contrib.auth.models import User
 class UserExt(models.Model):
 
     user = models.OneToOneField(User)
-    portrait = models.ImageField(upload_to="profile_images")
+    portrait = models.ImageField(upload_to="profile_images", blank=True)
 
+    class Meta:
 
+        verbose_name = "User Profile"
+        verbose_name_plural = "User Profiles"
 
+    def __unicode__(self):
+
+        return "<User Profile: {0}>".format(self.user.username)
