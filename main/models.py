@@ -28,6 +28,7 @@ class Image(models.Model):
     path = models.ImageField(upload_to="images", blank=False)
     thumb_path = models.ImageField(upload_to="thumbs")
     modified = models.DateTimeField(auto_now=True, auto_now_add=True)
+    is_vertical = models.BooleanField(default=True)
 
 
     class Meta:

@@ -45,4 +45,15 @@ class TestDatabase(TestCase):
         self.assertTrue(i.title=="test_image")
         self.assertTrue(i.path=="/images/sample.jpg")
 
-        # test for wrong input
+
+
+class TestUploadingImages(TestCase):
+
+    def sanity_check(self):
+
+        resp = self.client.get(reverse("upload"))
+        self.assertEquals(resp.status_code, 200)
+        self.assertIn("Upload image", str(resp))
+
+
+
