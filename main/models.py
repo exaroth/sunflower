@@ -36,3 +36,8 @@ class Image(models.Model):
         verbose_name_plural = "Pictures"
         ordering = ("modified",)
 
+
+    def __unicode__(self):
+
+        return "<Image: {0}>".format(self.title)
+

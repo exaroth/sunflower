@@ -4,18 +4,22 @@ from main.models import UserExt, Image
 # Register your models here.
 
 class UserExtAdmin(admin.ModelAdmin):
-    
-    
-    class Meta:
 
-        model = UserExt
+    def user_name(self, instance):
+
+        return instance.user.username
+
+    list_display = ("user_name",)
+
+    
 
 class ImageAdmin(admin.ModelAdmin):
 
-    class Meta:
+    def user_name(self, instance):
 
-        model = Image
+        return instance.uploader.username
 
+    list_display = ("title", "uploader", "modified")
 
 admin.site.register(UserExt, UserExtAdmin)
 admin.site.register(Image, ImageAdmin)
