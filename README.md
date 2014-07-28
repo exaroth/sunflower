@@ -1,4 +1,4 @@
-# Subflower
+# Sunflower
 
 #### Simple imageboard written in Django
 

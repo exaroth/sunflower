@@ -26,7 +26,7 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 TEMPLATE_DIRS = (
-    os.path.realpath(ROOT_DIR, "templates"),
+    os.path.realpath(os.path.join(ROOT_DIR, "templates")),
 )
 
 STATICFILES_DIRS = (
