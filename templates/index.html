@@ -4,6 +4,24 @@
 <!-- Index page  -->
 <h2>Index page</h2>
 
+{% if images %}
+
+{% for image in images %}
+	
+<div class="picture-frame">
+	<img src="/media/{{ image.thumb_path }}" alt="{{ image.title }}" />
+</div>
+
+{% endfor %}
+
+
+{% else %}
+
+<h3>No pictures uploaded yet</h3>
+
+{% endif %}
+
+
 {% endblock %}
 
 

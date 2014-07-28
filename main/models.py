@@ -34,7 +34,7 @@ class Image(models.Model):
 
         verbose_name = "Picture"
         verbose_name_plural = "Pictures"
-        ordering = ("modified",)
+        ordering = ("-modified",)
 
 
     def __unicode__(self):
