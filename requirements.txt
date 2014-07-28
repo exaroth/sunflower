@@ -1,3 +1,4 @@
 Django==1.6.5
+Pillow==2.5.1
 South==1.0
 wsgiref==0.1.2
