@@ -7,5 +7,7 @@ from django.contrib.auth.models import User
 class UserExt(models.Model):
 
     user = models.OneToOneField(User)
-
     portrait = models.ImageField(upload_to="profile_images")
+
+
+
