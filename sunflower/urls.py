@@ -4,15 +4,14 @@ from django.conf import settings
 from django.contrib import admin
 admin.autodiscover()
 
+from core.cbviews import IndexView
+
 urlpatterns = patterns('',
                        # Examples:
                        # url(r'^$', 'sunflower.views.home', name='home'),
                        # url(r'^blog/', include('blog.urls')),
-
-
                        url(r'^admin/', include(admin.site.urls)),
-                       url(r"^$", "main.views.index", name="index"),
-                       url(r"^upload/$", "main.views.upload", name="upload"),
+                       url(r"^$", IndexView.as_view(), name="index"),
                       )
 
 if settings.DEBUG:
