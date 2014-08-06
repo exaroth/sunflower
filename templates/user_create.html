@@ -1,0 +1,21 @@
+﻿{% extends "base.html" %}
+
+{% block content %}
+	
+	<form action="" method="post">
+		{% csrf_token %}
+		<h2>Create account</h2>
+		<label for="username">{{ form.username.label_tag }}</label>
+		<p>{{ form.username.errors }}</p>
+		{{ form.username }}
+		<label for="password">{{ form.password.label_tag }}</label>
+		<p>{{ form.password.errors }}</p>
+		{{ form.password }}
+
+		<button type="submit">Submit</button>
+	</form>
+
+
+{% endblock %}
+
+
