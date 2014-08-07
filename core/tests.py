@@ -35,12 +35,3 @@ class TestIndex(TestCase):
         self.assertEquals("test image", image.title)
         self.assertNotIn("No pictures uploaded yet", resp.content)
 
-
-
-
-
-
-
-
-
-
