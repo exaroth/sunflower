@@ -10,6 +10,10 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
     homepage = models.URLField()
 
+
+    def __unicode__(self):
+        return self.user.username
+
 class TimeStampMixin(models.Model):
 
     date_added = models.DateTimeField(auto_now=True, auto_now_add=True)

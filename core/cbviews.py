@@ -34,7 +34,7 @@ class CreateAccountView(CreateView):
 
     model = User
     form_class = UserCreateForm
-    template_name = "user_create.html"
+    template_name = "account_create.html"
     success_url = "/"
 
     def get(self, request, *args, **kwargs):
@@ -62,7 +62,6 @@ class CreateAccountView(CreateView):
     def form_valid(self, form, extended_form):
         username = form.cleaned_data["username"]
         password = form.cleaned_data["password"]
-        print username, password
         user = form.save(commit=True)
         user_profile = extended_form.save(commit=False)
         user_profile.user = user
@@ -77,12 +76,22 @@ class CreateAccountView(CreateView):
             extended_form = extended_form
         ))
 
-
-
 class AccountInfoView(DetailView):
 
     model = User
     template_name = "account_info.html"
-    context_object_name = "account_user"
+    context_object_name = "user_details"
     slug_field = "username"
     slug_url_kwarg = "username"
+
+    def get_context_data(self, **kwargs):
+
+        context = super(AccountInfoView, self).get_context_data(**kwargs)
+        try:
+            # Some users might not have additional info related to the
+            # like admin
+            additional = UserProfile.objects.get(user=self.get_object())
+            context["additional_info"] = additional
+        except Exception:
+            pass
+        return context
