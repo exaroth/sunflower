@@ -42,6 +42,9 @@ class CreateAccountView(CreateView):
 
     def get(self, request, *args, **kwargs):
 
+        if request.user.is_authenticated():
+            return HttpResponseRedirect(reverse("index"))
+
         self.object = None
         form = UserCreateForm
         extended_form = UserProfileForm
