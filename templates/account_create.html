@@ -2,14 +2,14 @@
 
 {% block content %}
 	
-	<form action="" method="post">
+	<form action="" method="post" enctype="multipart/form-data">
 		{% csrf_token %}
 		{{ form.errors }}
 		<h2>Create account</h2>
-		<label for="username_id">{{ form.username.label_tag }}</label>
+		<label for="username">{{ form.username.label_tag }}</label>
 		<p>{{ form.username.errors }}</p>
 		{{ form.username }}
-		<label for="password_id">{{ form.password.label_tag }}</label>
+		<label for="password">{{ form.password.label_tag }}</label>
 		<p>{{ form.password.errors }}</p>
 		{{ form.password }}
 
@@ -17,8 +17,10 @@
 		<p>{{ form.password2.errors }}</p>
 		{{ form.password2 }}
 
-		<label for="">{{ extended_form.homepage.label_tag }}</label>
-		{{ extended_form.homepage }}
+		<label for="homepage">{{ extended_form.homepage.label_tag }}</label>
+		{{ extended_form.homepage }}]
+		<label for="portrait">{{ extended_form.portrait.label_tag }}</label>
+		{{ extended_form.portrait }}
 
 		<button type="submit">Submit</button>
 	</form>

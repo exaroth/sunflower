@@ -8,7 +8,8 @@ class UserProfile(models.Model):
 
 
     user = models.OneToOneField(User)
-    homepage = models.URLField()
+    homepage = models.URLField(blank=True)
+    portrait = models.ImageField(upload_to="portraits", blank=True)
 
 
     def __unicode__(self):

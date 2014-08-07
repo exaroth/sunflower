@@ -52,11 +52,10 @@ class CreateAccountView(CreateView):
 
         self.object = None
         form = UserCreateForm(request.POST)
-        extended_form = UserProfileForm(request.POST)
+        extended_form = UserProfileForm(request.POST, request.FILES)
 
         if(form.is_valid() and extended_form.is_valid()):
-            print "form is valid"
-            print form.cleaned_data
+            print extended_form.cleaned_data
             return self.form_valid(form, extended_form)
         else:
             return self.form_invalid(form, extended_form)
