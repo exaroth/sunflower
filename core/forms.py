@@ -29,8 +29,8 @@ class UserCreateForm(forms.ModelForm):
     password2 = forms.CharField(widget=forms.PasswordInput)
 
     def clean(self, *args, **kwargs):
-        password1 = self.cleaned_data["password"]
-        password2 = self.cleaned_data["password2"]
+        password1 = self.cleaned_data.get("password", None)
+        password2 = self.cleaned_data.get("password2", None)
         if password1 and password2 and password1 != password2:
             msg = "Password Mismatch"
             raise forms.ValidationError(msg)
@@ -52,4 +52,3 @@ class UserCreateForm(forms.ModelForm):
             "password": forms.PasswordInput({"placeholder": "Enter password"}),
             "password2": forms.PasswordInput({"placeholder": "Repeat password"}),
         }
-

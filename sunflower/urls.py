@@ -19,7 +19,7 @@ urlpatterns = patterns('',
                        url(r"^$", IndexView.as_view(), name="index"),
                        url(r"^index/$", RedirectIndexView.as_view()),
                        url(r"^account_create/$", CreateAccountView.as_view(), name="account_create"),
-                       url(r"^account/(?P<username>[0-9a-zA-Z]{5,})$", AccountInfoView.as_view(), name="account_info"),
+                       url(r"^account/(?P<username>[0-9a-zA-Z_]{5,})$", AccountInfoView.as_view(), name="account_info"),
                        url(r"^login/$", LoginScreenView.as_view(), name='login'),
                        url(r"^logout/$", "core.views.logout_user", name="logout"),
                       )

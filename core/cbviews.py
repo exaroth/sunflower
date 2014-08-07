@@ -58,7 +58,6 @@ class CreateAccountView(CreateView):
         extended_form = UserProfileForm(request.POST, request.FILES)
 
         if(form.is_valid() and extended_form.is_valid()):
-            print extended_form.cleaned_data
             return self.form_valid(form, extended_form)
         else:
             return self.form_invalid(form, extended_form)
@@ -115,7 +114,6 @@ class LoginScreenView(FormView):
 
     def get_success_url(self, username):
         return reverse_lazy("account_info", kwargs={"username": username})
-
 
     def get(self, request, *args, **kwargs):
 
