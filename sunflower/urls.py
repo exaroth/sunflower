@@ -7,7 +7,8 @@ admin.autodiscover()
 from core.cbviews import ( IndexView,
                           RedirectIndexView,
                           CreateAccountView,
-                          AccountInfoView
+                          AccountInfoView,
+                          LoginScreenView
                          )
 
 urlpatterns = patterns('',
@@ -19,6 +20,7 @@ urlpatterns = patterns('',
                        url(r"^index/$", RedirectIndexView.as_view(), name="index_redir"),
                        url(r"^account_create/$", CreateAccountView.as_view(), name="account_create"),
                        url(r"^account/(?P<username>[0-9a-zA-Z]{5,})$", AccountInfoView.as_view(), name="account_info"),
+                       url(r"^login/$", LoginScreenView.as_view(), name='login'),
                       )
 
 if settings.DEBUG:

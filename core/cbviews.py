@@ -1,11 +1,14 @@
 from django.views.generic.edit import CreateView
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, authenticate
 from django.http import Http404, HttpResponseRedirect
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.views.generic import(
     TemplateView, ListView,
-    RedirectView, DetailView
+    RedirectView, DetailView,
+    FormView
 ) 
 
 from .models import Image, UserProfile
@@ -95,3 +98,28 @@ class AccountInfoView(DetailView):
         except Exception:
             pass
         return context
+
+
+class LoginScreenView(FormView):
+
+    form_class = AuthenticationForm
+    template_name = "login_screen.html"
+
+    def form_valid(self, form):
+
+        login(self.request, form.get_user())
+        username = form.cleaned_data["username"]
+        return HttpResponseRedirect(self.get_success_url(username))
+
+    def get_success_url(self, username):
+        return reverse_lazy("account_info", kwargs={"username": username})
+
+    def post(self, request, *args, **kwargs):
+
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)

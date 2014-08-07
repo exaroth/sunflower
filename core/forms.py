@@ -33,10 +33,8 @@ class UserCreateForm(forms.ModelForm):
         password2 = self.cleaned_data["password2"]
         if password1 and password2 and password1 != password2:
             msg = "Password Mismatch"
-            print msg
             raise forms.ValidationError(msg)
         return super(UserCreateForm, self).clean(*args, **kwargs)
-            
 
     def save(self, commit=True):
         user = super(UserCreateForm, self).save(commit=False)
@@ -54,5 +52,4 @@ class UserCreateForm(forms.ModelForm):
             "password": forms.PasswordInput({"placeholder": "Enter password"}),
             "password2": forms.PasswordInput({"placeholder": "Repeat password"}),
         }
-
 
