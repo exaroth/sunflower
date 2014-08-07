@@ -1,0 +1,50 @@
+*.py[co]
+
+# Packages
+*.egg
+*.egg-info
+*.bak
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+node_modules
+bower_components
+errors.log
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+
+uploads/*/
+test.db
+
+# Django files
+include
+lib
+local
+__pycache__
+man
+share
+Scripts
+.Python
+*.pyc
+*~
+*.db
+
+# MacOSX
+.DS_Store
