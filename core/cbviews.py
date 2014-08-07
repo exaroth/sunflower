@@ -1,15 +1,15 @@
 from django.views.generic.edit import CreateView
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.models import User
-from django.contrib.auth import forms
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from django.views.generic import(
     TemplateView, ListView,
     RedirectView, DetailView
 ) 
 
-from .models import Image
-from .forms import UserCreateForm
+from .models import Image, UserProfile
+from .forms import UserCreateForm, UserProfileForm
 
 
 class IndexView(ListView):
@@ -22,7 +22,7 @@ class IndexView(ListView):
     def get_context_data(self):
 
         context = super(IndexView, self).get_context_data()
-        
+
         return context
 
 class RedirectIndexView(RedirectView):
@@ -36,6 +36,47 @@ class CreateAccountView(CreateView):
     form_class = UserCreateForm
     template_name = "user_create.html"
     success_url = "/"
+
+    def get(self, request, *args, **kwargs):
+
+        self.object = None
+        form = UserCreateForm
+        extended_form = UserProfileForm
+        return self.render_to_response(self.get_context_data(form=form,
+                                                             extended_form=extended_form))
+
+    def post(self, request, *args, **kwargs):
+
+        self.object = None
+        form = UserCreateForm(request.POST)
+        extended_form = UserProfileForm(request.POST)
+
+        if(form.is_valid() and extended_form.is_valid()):
+            print "form is valid"
+            print form.cleaned_data
+            return self.form_valid(form, extended_form)
+        else:
+            return self.form_invalid(form, extended_form)
+
+
+    def form_valid(self, form, extended_form):
+        username = form.cleaned_data["username"]
+        password = form.cleaned_data["password"]
+        print username, password
+        user = form.save(commit=True)
+        user_profile = extended_form.save(commit=False)
+        user_profile.user = user
+        user_profile.save()
+
+        return HttpResponseRedirect(reverse("index"))
+
+    def form_invalid(self, form, extended_form):
+
+        return self.render_to_response(self.get_context_data(
+            form=form,
+            extended_form = extended_form
+        ))
+
 
 
 class AccountInfoView(DetailView):
