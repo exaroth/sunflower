@@ -114,6 +114,13 @@ class LoginScreenView(FormView):
     def get_success_url(self, username):
         return reverse_lazy("account_info", kwargs={"username": username})
 
+
+    def get(self, request, *args, **kwargs):
+
+        if request.user.is_authenticated():
+            return HttpResponseRedirect(reverse("index"))
+        return super(LoginScreenView, self).get(request, *args, **kwargs)
+
     def post(self, request, *args, **kwargs):
 
         form_class = self.get_form_class()
