@@ -4,6 +4,7 @@
 	
 <h2>Hello {{ user_details.username }}</h2>
 {% if additional %}
+<img src="{{ additional_info.avatar.url }}" alt="Your avatar" />
 <p><strong>Your homepage: </strong>{{ additional_info.homepage }}</p>
 {% endif %}
 

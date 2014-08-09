@@ -93,12 +93,18 @@ class AccountInfoView(DetailView):
     slug_field = "username"
     slug_url_kwarg = "username"
     model = User
+    
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if self.request.user.username != self.kwargs["username"]:
+            raise Http404
+        return super(AccountInfoView, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
 
         context = super(AccountInfoView, self).get_context_data(**kwargs)
         try:
-            additional = self.get_object().profile.get()
+            additional = self.get_object().profile
         except:
             additional = None
         images = self.get_object().images.all()
