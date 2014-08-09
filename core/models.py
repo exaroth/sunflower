@@ -1,12 +1,30 @@
 from django.db import models
 from django.contrib.auth.models import User
 from imagekit.models import ImageSpecField
-from imagekit.processors import ResizeToFill
+from imagekit.processors import ResizeToFit, AddBorder
+from imagekit import ImageSpec, register
+from imagekit.utils import get_field_info
 from south.modelsinspector import add_introspection_rules
 add_introspection_rules([], [r"core.\thumb.\ImageSpecField"])
 
 
 # Create your models here.
+
+
+class ImageThumbnail(ImageSpec):
+
+
+    format = "JPEG"
+    options = {"quality": 80}
+    cache_to="thumbnails"
+
+    @property
+    def processors(self):
+        model, field = get_field_info(self.source)
+        return [ResizeToFit(400)]
+
+register.generator("core:image:image_thumbnail", ImageThumbnail)
+
 
 
 class UserProfile(models.Model):
@@ -36,9 +54,8 @@ class Image(TimeStampMixin):
     author = models.ForeignKey(User)
     img = models.ImageField(upload_to="images")
     thumb = ImageSpecField(source="img",
-                           processors=[ResizeToFill(100, 50)],
-                           format="JPEG",
-                           options={"quality": 80})
+                           id="core:image:image_thumbnail"
+                           )
 
     def __unicode__(self):
         return self.title
@@ -52,7 +69,7 @@ class Category(TimeStampMixin):
 
     name = models.CharField(max_length=40,
                             help_text="Category name",
-                            choices=[("depro", "fundis")])
+                           )
     images = models.ManyToManyField(Image)
 
 
