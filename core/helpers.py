@@ -1,4 +1,7 @@
 import re
+from PIL import Image
+import os
+import StringIO
 
 
 def username_valid(username):

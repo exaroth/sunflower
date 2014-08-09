@@ -14,6 +14,7 @@ from django.views.generic import(
 ) 
 
 from .models import Image, UserProfile
+from .helpers import create_thumbnail
 from .forms import (
     UserCreateForm, UserProfileForm,
     ImageAddForm, CategoryForm
@@ -151,8 +152,10 @@ class ImageUploadView(CreateView):
 
         new_image = form.save(commit=False)
         new_image.author = self.request.user
-        im = new_image.save()
-        print im
+        new_image.thumb_path = create_thumbnail(new_image.path)
+        print new_image.thumb_path
+        print dir(new_image.thumb_path)
+        new_image.save()
         return HttpResponseRedirect(reverse_lazy("index"))
 
     def get(self, request, *args, **kwargs):

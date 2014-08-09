@@ -75,9 +75,10 @@ class ImageAddForm(forms.ModelForm):
         if image:
             image_name = image.name
             ext = image_name.rsplit(".", 1)[-1]
-            if ext not in ("jpg", "png", "gif"):
-                msg = ("Supported formats are jpg and png images")
-                raise forms.ValidationError(msg)
+            if ext and len(ext) > 1:
+                if ext not in ("jpg", "png", "gif"):
+                    msg = ("Supported formats are jpg and png images")
+                    raise forms.ValidationError(msg)
         return image
 
 
