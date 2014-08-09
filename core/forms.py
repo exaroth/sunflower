@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 import re
 
-from .models import Image, UserProfile
+from .models import Image, UserProfile, Category
 from .helpers import username_valid
 
 
@@ -64,3 +64,27 @@ class UserCreateForm(forms.ModelForm):
                                          "placeholder": "Enter your username"}),
             "password": forms.PasswordInput({"placeholder": "Enter password"}),
         }
+
+
+class ImageAddForm(forms.ModelForm):
+
+    class Meta:
+        
+        model = Image
+        fields = ("title", "path")
+
+class CategoryForm(forms.ModelForm):
+    
+
+    class Meta:
+
+        model = Category
+        fields = ("name",)
+        widgets = {
+            "name": forms.TextInput({
+                "placeholder": "Category names",
+            })
+
+    }
+
+

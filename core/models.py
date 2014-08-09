@@ -27,10 +27,10 @@ class TimeStampMixin(models.Model):
 
 class Image(TimeStampMixin):
 
-    title = models.TextField()
+    title = models.CharField(max_length=120)
     author = models.ForeignKey(User)
     path = models.ImageField(upload_to="images")
-    thumb_path = models.ImageField(upload_to="thumbnails")
+    thumb_path = models.ImageField(upload_to="thumbnails", blank=True)
 
     def __unicode__(self):
         return self.title
@@ -40,12 +40,19 @@ class Image(TimeStampMixin):
         verbose_name = "Image"
         verbose_name_plural = "Images"
 
+class Category(TimeStampMixin):
+
+    name = models.CharField(max_length=40,
+                            help_text="Category name",
+                           choices=[("depro", "fundis")])
+    images = models.ManyToManyField(Image)
 
 
-
-
-
+    def __unicode__(self):
+        return self.name
     
+    class Meta:
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
 
-    
 

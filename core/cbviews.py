@@ -5,6 +5,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse, reverse_lazy
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 from django.views.generic import(
     TemplateView, ListView,
     RedirectView, DetailView,
@@ -12,7 +14,10 @@ from django.views.generic import(
 ) 
 
 from .models import Image, UserProfile
-from .forms import UserCreateForm, UserProfileForm
+from .forms import (
+    UserCreateForm, UserProfileForm,
+    ImageAddForm, CategoryForm
+) 
 
 
 class IndexView(ListView):
@@ -130,3 +135,44 @@ class LoginScreenView(FormView):
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
+
+
+class ImageUploadView(CreateView):
+
+    form_class = ImageAddForm
+    category_form_class = CategoryForm
+    template_name = "image_upload.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ImageUploadView, self).dispatch(*args, **kwargs)
+
+    def form_valid(self, form):
+
+        new_image = form.save(commit=False)
+        new_image.author = request.user
+        im = new_image.save()
+        print im
+        return HttpResponseRedirect(reverse_lazy("index"))
+
+    def get(self, request, *args, **kwargs):
+
+        self.object = None
+        form = self.get_form(self.form_class)
+        return self.render_to_response(self.get_context_data(
+            form = form,
+        ))
+
+    def post(self, request, *args, **kwargs):
+
+        self.object = None
+        form = self.get_form(self.form_class)
+
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+
+
+
