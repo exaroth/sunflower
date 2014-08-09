@@ -176,6 +176,9 @@ class ImageUploadView(CreateView):
         else:
             return self.form_invalid(form)
 
+class ImageDetailView(DetailView):
 
-
+    template_name = "image_detail.html"
+    model = Image
+    context_object_name = "image"
 

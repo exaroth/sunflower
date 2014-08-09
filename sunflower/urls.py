@@ -9,8 +9,8 @@ from core.cbviews import ( IndexView,
                           CreateAccountView,
                           AccountInfoView,
                           LoginScreenView,
-                          ImageUploadView
-
+                          ImageUploadView,
+                          ImageDetailView
                          )
 
 urlpatterns = patterns('',
@@ -25,6 +25,7 @@ urlpatterns = patterns('',
                        url(r"^login/$", LoginScreenView.as_view(), name='login'),
                        url(r"^logout/$", "core.views.logout_user", name="logout"),
                        url(r"^upload/$", ImageUploadView.as_view(), name="image_upload"),
+                       url(r"image/(?P<pk>\d+)$", ImageDetailView.as_view(), name="image_detail")
                       )
     
 
