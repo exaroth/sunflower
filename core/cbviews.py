@@ -150,7 +150,7 @@ class ImageUploadView(CreateView):
     def form_valid(self, form):
 
         new_image = form.save(commit=False)
-        new_image.author = request.user
+        new_image.author = self.request.user
         im = new_image.save()
         print im
         return HttpResponseRedirect(reverse_lazy("index"))

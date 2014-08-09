@@ -5,6 +5,7 @@ import re
 
 from .models import Image, UserProfile, Category
 from .helpers import username_valid
+from django.conf import settings
 
 
 class ImageForm(forms.ModelForm):
@@ -68,6 +69,18 @@ class UserCreateForm(forms.ModelForm):
 
 class ImageAddForm(forms.ModelForm):
 
+
+    def clean_path(self):
+        image = self.cleaned_data.get("path", None)
+        if image:
+            image_name = image.name
+            ext = image_name.rsplit(".", 1)[-1]
+            if ext not in ("jpg", "png", "gif"):
+                msg = ("Supported formats are jpg and png images")
+                raise forms.ValidationError(msg)
+        return image
+
+
     class Meta:
         
         model = Image
@@ -77,7 +90,6 @@ class CategoryForm(forms.ModelForm):
     
 
     class Meta:
-
         model = Category
         fields = ("name",)
         widgets = {
