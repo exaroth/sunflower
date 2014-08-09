@@ -9,7 +9,7 @@
 {% for image in images %}
 	
 <div class="picture-frame">
-	<img src="/media/{{ image.path }}" alt="{{ image.title }}" />
+	<img src="{{ image.thumb.url }}" alt="{{ image.title }}" />
 </div>
 
 {% endfor %}

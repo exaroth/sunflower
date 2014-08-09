@@ -85,7 +85,7 @@ class ImageAddForm(forms.ModelForm):
     class Meta:
         
         model = Image
-        fields = ("title", "path")
+        fields = ("title", "img")
 
 class CategoryForm(forms.ModelForm):
     
