@@ -27,7 +27,7 @@ register.generator("core:image:image_thumbnail", ImageThumbnail)
 class UserProfile(models.Model):
 
 
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, related_name="profile")
     homepage = models.URLField(blank=True)
     avatar = ProcessedImageField(upload_to="avatars",
                                  blank=True,
@@ -49,7 +49,7 @@ class TimeStampMixin(models.Model):
 class Image(TimeStampMixin):
 
     title = models.CharField(max_length=120)
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(User, related_name="images")
     img = models.ImageField(upload_to="images")
     thumb = ImageSpecField(source="img",
                            id="core:image:image_thumbnail"

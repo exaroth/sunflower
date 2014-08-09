@@ -32,6 +32,7 @@ pip-log.txt
 
 uploads/*/
 test.db
+db.sqlite3
 
 # Django files
 include

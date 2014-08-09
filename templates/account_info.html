@@ -3,8 +3,26 @@
 {% block content %}
 	
 <h2>Hello {{ user_details.username }}</h2>
-
+{% if additional %}
 <p><strong>Your homepage: </strong>{{ additional_info.homepage }}</p>
+{% endif %}
+
+
+
+
+{% if not images %}
+<p>No images added yet</p>
+{% else %}
+
+{% for image in images %}
+<img src="{{ image.thumb.url }}" alt="{{ image.title }}" />
+{% endfor %}
+
+{% endif %}
+
+
+
+
 
 
 {% endblock %}

@@ -88,23 +88,26 @@ class CreateAccountView(CreateView):
 
 class AccountInfoView(DetailView):
 
-    model = User
     template_name = "account_info.html"
     context_object_name = "user_details"
     slug_field = "username"
     slug_url_kwarg = "username"
+    model = User
 
     def get_context_data(self, **kwargs):
 
         context = super(AccountInfoView, self).get_context_data(**kwargs)
         try:
-            # Some users might not have additional info related to the
-            # like admin
-            additional = UserProfile.objects.get(user=self.get_object())
-            context["additional_info"] = additional
-        except Exception:
-            pass
+            additional = self.get_object().profile.get()
+        except:
+            additional = None
+        images = self.get_object().images.all()
+        context["additional_info"] = additional
+        context["images"] = images
         return context
+
+    def get_object(self):
+        return self.model.objects.filter(username=self.kwargs["username"]).select_related().get()
 
 
 class LoginScreenView(FormView):
