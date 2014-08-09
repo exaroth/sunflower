@@ -71,7 +71,7 @@ class ImageAddForm(forms.ModelForm):
 
 
     def clean_path(self):
-        image = self.cleaned_data.get("path", None)
+        image = self.cleaned_data.get("img", None)
         if image:
             image_name = image.name
             ext = image_name.rsplit(".", 1)[-1]

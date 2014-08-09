@@ -67,7 +67,6 @@ class CreateAccountView(CreateView):
         else:
             return self.form_invalid(form, extended_form)
 
-
     def form_valid(self, form, extended_form):
         username = form.cleaned_data["username"]
         password = form.cleaned_data["password"]
@@ -75,7 +74,9 @@ class CreateAccountView(CreateView):
         user_profile = extended_form.save(commit=False)
         user_profile.user = user
         user_profile.save()
-
+        
+        authenticated = authenticate(username=username, password=password)
+        login(self.request, authenticated)
         return HttpResponseRedirect(reverse("index"))
 
     def form_invalid(self, form, extended_form):

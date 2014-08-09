@@ -14,7 +14,7 @@ class UserProfileAdmin(admin.ModelAdmin):
 
         return instance.user.username
 
-    list_display = ("homepage", "profile_username")
+    list_display = ("profile_username", "homepage")
 
 admin.site.register(Image, ImageAdmin)
 admin.site.register(UserProfile, UserProfileAdmin)
