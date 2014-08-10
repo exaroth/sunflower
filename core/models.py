@@ -6,7 +6,10 @@ from imagekit.models import ImageSpecField, ProcessedImageField
 from imagekit.processors import ResizeToFit, AddBorder, SmartResize
 from imagekit import ImageSpec, register
 from imagekit.utils import get_field_info
+from django.forms.models import model_to_dict
 from south.modelsinspector import add_introspection_rules
+from django.core import serializers
+
 
 add_introspection_rules([], [r"core.\thumb.\ImageSpecField"])
 
@@ -48,6 +51,24 @@ class TimeStampMixin(models.Model):
     class Meta:
         abstract = True
 
+class JSONConvertibleManager(models.Manager):
+    
+    def __init__(self, json_fields=None, *args, **kwargs):
+        # fields of the model to be displayed
+        self.json_fields = json_fields
+        return super(JSONConvertibleManager, self).__init__(*args, **kwargs)
+
+    def get_queryset(self):
+        instance = super(JSONConvertibleManager, self).get_queryset().select_related()
+        return self.convert_to_json(instance)
+
+    def convert_to_json(self, data):
+        JSONSerializer = serializers.get_serializer("json")
+        json_serializer = JSONSerializer()
+        json_fields = self.json_fields or list()
+        return json_serializer.serialize(data)
+
+
 class Image(TimeStampMixin):
 
     title = models.CharField(max_length=120)
@@ -57,6 +78,8 @@ class Image(TimeStampMixin):
     thumb = ImageSpecField(source="img",
                            id="core:image:image_thumbnail"
                           )
+    json_data = JSONConvertibleManager()
+    objects = models.Manager()
 
     def __unicode__(self):
         return self.title
@@ -65,7 +88,7 @@ class Image(TimeStampMixin):
         return reverse("image_details", kwargs={"pk": self.pk})
 
     class Meta:
-        ordering = ("date_added",)
+        ordering = ("-date_added",)
         verbose_name = "Image"
         verbose_name_plural = "Images"
 

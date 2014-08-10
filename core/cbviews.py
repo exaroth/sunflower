@@ -213,3 +213,6 @@ class ImageDetailView(DetailView):
     model = Image
     context_object_name = "image"
 
+
+
+
