@@ -4,19 +4,19 @@ from django.conf import settings
 from django.contrib import admin
 admin.autodiscover()
 
-from core.cbviews import ( IndexView,
+from core.cbviews import (IndexView,
                           RedirectIndexView,
                           CreateAccountView,
                           AccountInfoView,
                           LoginScreenView,
                           ImageUploadView,
-                          ImageDetailView
+                          ImageDetailView,
+                          ImageDeleteView
                          )
 
 urlpatterns = patterns('',
                        # Examples:
                        # url(r'^$', 'sunflower.views.home', name='home'),
-                       # url(r'^blog/', include('blog.urls')),
                        url(r'^admin/', include(admin.site.urls)),
                        url(r"^$", IndexView.as_view(), name="index"),
                        url(r"^index/$", RedirectIndexView.as_view()),
@@ -25,7 +25,9 @@ urlpatterns = patterns('',
                        url(r"^login/$", LoginScreenView.as_view(), name='login'),
                        url(r"^logout/$", "core.views.logout_user", name="logout"),
                        url(r"^upload/$", ImageUploadView.as_view(), name="image_upload"),
-                       url(r"image/(?P<pk>\d+)$", ImageDetailView.as_view(), name="image_detail")
+                       url(r"image/(?P<pk>\d+)$", ImageDetailView.as_view(), name="image_detail"),
+                       url(r"image/delete/(?P<pk>\d+)", ImageDeleteView.as_view(), name="image_delete"),
+
                       )
     
 

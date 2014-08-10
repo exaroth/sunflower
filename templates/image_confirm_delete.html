@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Delete image</h2>
+
+<form action="" method="post">
+	{% csrf_token %}
+	<p>Do you really want to delete image {{ image.title }}? </p>
+	<button type="submit">Yes</button>
+	<a href="{% url 'index' %}">No</a>
+</form>
+
+{% endblock %}
+
+

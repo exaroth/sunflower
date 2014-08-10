@@ -1,16 +1,17 @@
-from django.views.generic.edit import CreateView
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponseForbidden, HttpResponse
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import(
     TemplateView, ListView,
     RedirectView, DetailView,
-    FormView
+    FormView, DeleteView, CreateView,
+    View
 ) 
 
 from .models import Image, UserProfile
@@ -181,6 +182,30 @@ class ImageUploadView(CreateView):
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
+
+
+class ImageDeleteView(DeleteView):
+
+    model = Image
+    template_name = "image_confirm_delete.html"
+
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ImageDeleteView, self).dispatch(*args, **kwargs)
+
+    def get_success_url(self):
+
+        return reverse_lazy("index")
+
+    def get_object(self, queryset=None):
+
+        obj = super(ImageDeleteView, self).get_object()
+        print obj.author == self.request.user
+        if obj.author != self.request.user:
+            raise Http404()
+        return obj
+
 
 class ImageDetailView(DetailView):
 
