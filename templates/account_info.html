@@ -19,6 +19,7 @@
 {% if image.description %}
 <p>{{ image.description }}</p>
 {% endif %}
+<a href="{% url 'image_delete' pk=image.pk %}">Delete</a>
 
 {% endfor %}
 
