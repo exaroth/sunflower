@@ -9,14 +9,17 @@
 {% endif %}
 
 
-
-
 {% if not images %}
 <p>No images added yet</p>
 {% else %}
 
 {% for image in images %}
 <img src="{{ image.thumb.url }}" alt="{{ image.title }}" />
+<h3>{{ image.title }}</h3>
+{% if image.description %}
+<p>{{ image.description }}</p>
+{% endif %}
+
 {% endfor %}
 
 {% endif %}

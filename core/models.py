@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from imagekit.models import ImageSpecField, ProcessedImageField
 from imagekit.processors import ResizeToFit, AddBorder, SmartResize
 from imagekit import ImageSpec, register
@@ -49,6 +51,7 @@ class TimeStampMixin(models.Model):
 class Image(TimeStampMixin):
 
     title = models.CharField(max_length=120)
+    description = models.TextField(blank=True)
     author = models.ForeignKey(User, related_name="images")
     img = models.ImageField(upload_to="images")
     thumb = ImageSpecField(source="img",
@@ -57,6 +60,9 @@ class Image(TimeStampMixin):
 
     def __unicode__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse("image_details", kwargs={"pk": self.pk})
 
     class Meta:
         ordering = ("date_added",)

@@ -18,6 +18,13 @@ class ImageForm(forms.ModelForm):
 
 class UserProfileForm(forms.ModelForm):
 
+    def clean_homepage(self):
+
+        homepage = self.cleaned_data["homepage"]
+        if not homepage.startswith("http://"):
+            homepage = "http://" + homepage
+        return homepage
+
     class Meta:
 
         model = UserProfile
@@ -85,11 +92,10 @@ class ImageAddForm(forms.ModelForm):
     class Meta:
         
         model = Image
-        fields = ("title", "img")
+        fields = ("title", "description", "img")
 
 class CategoryForm(forms.ModelForm):
     
-
     class Meta:
         model = Category
         fields = ("name",)
