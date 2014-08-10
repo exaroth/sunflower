@@ -9,7 +9,7 @@
 {% for image in images %}
 	
 <div class="picture-frame">
-	<img src="{{ image.thumb.url }}" alt="{{ image.title }}" />
+	<a href="{% url 'image_detail' pk=image.pk  %}"><img src="{{ image.thumb.url }}" alt="{{ image.title }}" /></a>
 	<a href="{% url 'image_delete' pk=image.pk %}">Delete</a>
 </div>
 
