@@ -78,8 +78,8 @@ class Image(TimeStampMixin):
     thumb = ImageSpecField(source="img",
                            id="core:image:image_thumbnail"
                           )
-    json_data = JSONConvertibleManager()
     objects = models.Manager()
+    json_data = JSONConvertibleManager()
 
     def __unicode__(self):
         return self.title

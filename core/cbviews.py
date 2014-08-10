@@ -104,17 +104,20 @@ class AccountInfoView(DetailView):
     def get_context_data(self, **kwargs):
 
         context = super(AccountInfoView, self).get_context_data(**kwargs)
+        user_data = self.get_object()
         try:
-            additional = self.get_object().profile
+            additional = user_data.profile
         except:
             additional = None
-        images = self.get_object().images.all()
+        images = user_data.images.all()
         context["additional_info"] = additional
         context["images"] = images
         return context
 
     def get_object(self):
-        return self.model.objects.filter(username=self.kwargs["username"]).select_related().get()
+        return self.model.objects.\
+                filter(username=self.\
+                       kwargs["username"]).select_related().get()
 
 
 class LoginScreenView(FormView):
