@@ -3,10 +3,12 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.http import Http404, HttpResponseRedirect, HttpResponseForbidden, HttpResponse
+from django.views.generic.list import BaseListView
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.list import MultipleObjectMixin
 from django.views.generic import(
     TemplateView, ListView,
     RedirectView, DetailView,
@@ -216,6 +218,29 @@ class ImageDetailView(DetailView):
     model = Image
     context_object_name = "image"
 
+class JSONResponseView(object):
+
+    
+    """
+    Implements basic methods for returning JSON response
+    """
+
+
+
+    def render_to_json_response(self, data, **context_kwargs):
+        context_kwargs["Content-Type"] = "application/json"
+        return HttpResponse(data, **context_kwargs)
+
+
+class JSONImageView(JSONResponseView, BaseListView, View):
+
+    queryset = Image.json_data.all()
+
+    def get(self, request, *args, **kwargs):
+        print self.queryset
+        response_kwargs = dict()
+        response_kwargs["mimetype"] = "application/json"
+        return HttpResponse(self.queryset, **response_kwargs)
 
 
 

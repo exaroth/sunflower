@@ -53,20 +53,32 @@ class TimeStampMixin(models.Model):
 
 class JSONConvertibleManager(models.Manager):
     
-    def __init__(self, json_fields=None, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         # fields of the model to be displayed
-        self.json_fields = json_fields
+        self.json_fields = None
         return super(JSONConvertibleManager, self).__init__(*args, **kwargs)
 
-    def get_queryset(self):
-        instance = super(JSONConvertibleManager, self).get_queryset().select_related()
-        return self.convert_to_json(instance)
+    def define_fields(self, fields=None):
+        
+        """
+        Define custom fields to be displayed
+        :param fields -- tuple containing name
+        of the fields to be added to the query
+        """
+        self.json_fields = fields 
+        return self
 
-    def convert_to_json(self, data):
+    def get_queryset(self):
+        instance = super(JSONConvertibleManager, self).get_queryset()
+        return self._convert_to_json(instance)
+
+    def _convert_to_json(self, data):
         JSONSerializer = serializers.get_serializer("json")
         json_serializer = JSONSerializer()
-        json_fields = self.json_fields or list()
-        return json_serializer.serialize(data)
+        kwargs = dict()
+        if self.json_fields:
+            kwargs["fields"] = self.json_fields
+        return json_serializer.serialize(data, indent=4, **kwargs)
 
 
 class Image(TimeStampMixin):
