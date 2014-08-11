@@ -1,5 +1,11 @@
 ﻿{% extends "base.html" %}
 
+{% block title %}
+Account - {{ user.username }}
+{% endblock %}
+
+
+
 {% block content %}
 	
 <h2>Hello {{ user_details.username }}</h2>

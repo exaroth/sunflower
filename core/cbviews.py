@@ -48,7 +48,7 @@ class CreateAccountView(CreateView):
 
     model = User
     form_class = UserCreateForm
-    template_name = "account_create.html"
+    template_name = "auth/account_create.html"
     success_url = "/"
 
     def get(self, request, *args, **kwargs):
@@ -94,7 +94,7 @@ class CreateAccountView(CreateView):
 
 class AccountInfoView(DetailView):
 
-    template_name = "account_info.html"
+    template_name = "auth/account_info.html"
     context_object_name = "user_details"
     slug_field = "username"
     slug_url_kwarg = "username"
@@ -128,7 +128,7 @@ class AccountInfoView(DetailView):
 class LoginScreenView(FormView):
 
     form_class = AuthenticationForm
-    template_name = "login_screen.html"
+    template_name = "auth/login_screen.html"
 
     def form_valid(self, form):
 
@@ -228,7 +228,7 @@ class JSONResponseView(object):
     """
 
     def render_to_json_response(self, data, **context_kwargs):
-        context_kwargs["Content-Type"] = "application/json"
+        context_kwargs["content_type"] = "application/json"
         return StreamingHttpResponse(self.convert_to_json(data), **context_kwargs)
 
     def convert_to_json(self, data):
@@ -241,10 +241,7 @@ class JSONImageView(JSONResponseView, View):
     json_fields = ("img", "title")
 
     def get(self, request, *args, **kwargs):
-        data = self.get_context_data()
-        response_kwargs = dict()
-        response_kwargs["content_type"] = "application/json"
-        return StreamingHttpResponse(data, **response_kwargs)
+        return self.render_to_json_response(self.get_context_data())
 
     def get_pagination(self):
         limit = int(self.kwargs["items"])
@@ -265,6 +262,8 @@ class JSONImageView(JSONResponseView, View):
         pagination = self.get_pagination()
         item_count = object_list.count()
         page = object_list[pagination[0]: pagination[1]].queryset_to_list()
+        if not page:
+            raise Http404()
         result = dict()
         result["_meta"] = dict(
              image_count = item_count,
@@ -272,4 +271,4 @@ class JSONImageView(JSONResponseView, View):
 
         )
         result["data"] = page
-        return self.convert_to_json(result)
+        return result
