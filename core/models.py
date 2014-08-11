@@ -79,11 +79,11 @@ class Image(TimeStampMixin):
     def get_absolute_url(self):
         return reverse("image_details", kwargs={"pk": self.pk})
 
-    def to_dict(self):
+    def _to_dict(self):
         # Convert item to dictionary
         return dict(
             title = self.title,
-            description = self.description,
+            description = self.description or None,
             author = self.author.username,
             img = self.img.url,
             thumb = self.thumb.url
@@ -96,7 +96,7 @@ class Image(TimeStampMixin):
             # dicts of items ( for json serialization )
             result = list()
             for item in self:
-                result.append(item.to_dict())
+                result.append(item._to_dict())
             return result
 
     class Meta:

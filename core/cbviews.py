@@ -222,7 +222,6 @@ class ImageDetailView(DetailView):
     context_object_name = "image"
 
 class JSONResponseView(object):
-
     
     """
     Implements basic methods for returning JSON response
@@ -235,27 +234,42 @@ class JSONResponseView(object):
     def convert_to_json(self, data):
         return simplejson.dumps(data, indent=4)
 
-class JSONImageView(JSONResponseView, BaseListView, View):
+class JSONImageView(JSONResponseView, View):
     
     model = Image
     max_items = 30
     json_fields = ("img", "title")
 
     def get(self, request, *args, **kwargs):
-        data = self.convert_to_json(self.get_queryset())
+        data = self.get_context_data()
         response_kwargs = dict()
         response_kwargs["content_type"] = "application/json"
         return StreamingHttpResponse(data, **response_kwargs)
 
-    def get_queryset(self):
-        # Add logic for pagination here
-
+    def get_pagination(self):
         limit = int(self.kwargs["items"])
         if limit > self.max_items:
             limit = self.max_items
         current_page = int(self.kwargs["page"])
-        object_list = self.model.objects.all()[(current_page - 1)* limit: current_page*limit]
-        # paginator =  Paginator(object_list, limit)
-        # page = paginator.page(current_page).queryset_to_list()
-        page = object_list.queryset_to_list()
-        return page
+        start = (current_page - 1)* limit
+        end = current_page*limit
+        return (start, end)
+
+    def get_object(self):
+        # Add logic for pagination here
+        object_list = self.model.objects.all()
+        return object_list
+
+    def get_context_data(self):
+        object_list = self.get_object()
+        pagination = self.get_pagination()
+        item_count = object_list.count()
+        page = object_list[pagination[0]: pagination[1]].queryset_to_list()
+        result = dict()
+        result["_meta"] = dict(
+             image_count = item_count,
+             api_version = "0.0.1"
+
+        )
+        result["data"] = page
+        return self.convert_to_json(result)
