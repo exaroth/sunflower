@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.query import QuerySet
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
@@ -8,7 +9,6 @@ from imagekit import ImageSpec, register
 from imagekit.utils import get_field_info
 from django.forms.models import model_to_dict
 from south.modelsinspector import add_introspection_rules
-from django.core import serializers
 
 
 add_introspection_rules([], [r"core.\thumb.\ImageSpecField"])
@@ -51,35 +51,16 @@ class TimeStampMixin(models.Model):
     class Meta:
         abstract = True
 
-class JSONConvertibleManager(models.Manager):
-    
-    def __init__(self, *args, **kwargs):
-        # fields of the model to be displayed
-        self.json_fields = None
-        return super(JSONConvertibleManager, self).__init__(*args, **kwargs)
+class CustomQuerySetManager(models.Manager):
+    """A re-usable Manager to access a custom QuerySet"""
+    def __getattr__(self, attr, *args):
+        try:
+            return getattr(self.__class__, attr, *args)
+        except AttributeError:
+            return getattr(self.get_query_set(), attr, *args)
 
-    def define_fields(self, fields=None):
-        
-        """
-        Define custom fields to be displayed
-        :param fields -- tuple containing name
-        of the fields to be added to the query
-        """
-        self.json_fields = fields 
-        return self
-
-    def get_queryset(self):
-        instance = super(JSONConvertibleManager, self).get_queryset()
-        return self._convert_to_json(instance)
-
-    def _convert_to_json(self, data):
-        JSONSerializer = serializers.get_serializer("json")
-        json_serializer = JSONSerializer()
-        kwargs = dict()
-        if self.json_fields:
-            kwargs["fields"] = self.json_fields
-        return json_serializer.serialize(data, indent=4, **kwargs)
-
+    def get_query_set(self):
+        return self.model.QuerySet(self.model)
 
 class Image(TimeStampMixin):
 
@@ -90,14 +71,33 @@ class Image(TimeStampMixin):
     thumb = ImageSpecField(source="img",
                            id="core:image:image_thumbnail"
                           )
-    objects = models.Manager()
-    json_data = JSONConvertibleManager()
+    objects = CustomQuerySetManager()
 
     def __unicode__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse("image_details", kwargs={"pk": self.pk})
+
+    def to_dict(self):
+        # Convert item to dictionary
+        return dict(
+            title = self.title,
+            description = self.description,
+            author = self.author.username,
+            img = self.img.url,
+            thumb = self.thumb.url
+        )
+
+    class QuerySet(QuerySet):
+
+        def queryset_to_list(self):
+            # Return list of items containing
+            # dicts of items ( for json serialization )
+            result = list()
+            for item in self:
+                result.append(item.to_dict())
+            return result
 
     class Meta:
         ordering = ("-date_added",)
@@ -118,5 +118,3 @@ class Category(TimeStampMixin):
     class Meta:
         verbose_name = "Category"
         verbose_name_plural = "Categories"
-
-

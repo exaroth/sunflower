@@ -2,11 +2,14 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
-from django.http import Http404, HttpResponseRedirect, HttpResponseForbidden, HttpResponse
+from django.http import Http404, HttpResponseRedirect, HttpResponseForbidden, HttpResponse, StreamingHttpResponse
 from django.views.generic.list import BaseListView
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+from django.core import serializers
+from django.utils import simplejson
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.list import MultipleObjectMixin
 from django.views.generic import(
@@ -225,22 +228,34 @@ class JSONResponseView(object):
     Implements basic methods for returning JSON response
     """
 
-
-
     def render_to_json_response(self, data, **context_kwargs):
         context_kwargs["Content-Type"] = "application/json"
-        return HttpResponse(data, **context_kwargs)
+        return StreamingHttpResponse(self.convert_to_json(data), **context_kwargs)
 
+    def convert_to_json(self, data):
+        return simplejson.dumps(data, indent=4)
 
 class JSONImageView(JSONResponseView, BaseListView, View):
-
-    queryset = Image.json_data.all()
+    
+    model = Image
+    max_items = 30
+    json_fields = ("img", "title")
 
     def get(self, request, *args, **kwargs):
-        print self.queryset
+        data = self.convert_to_json(self.get_queryset())
         response_kwargs = dict()
-        response_kwargs["mimetype"] = "application/json"
-        return HttpResponse(self.queryset, **response_kwargs)
+        response_kwargs["content_type"] = "application/json"
+        return StreamingHttpResponse(data, **response_kwargs)
 
+    def get_queryset(self):
+        # Add logic for pagination here
 
-
+        limit = int(self.kwargs["items"])
+        if limit > self.max_items:
+            limit = self.max_items
+        current_page = int(self.kwargs["page"])
+        object_list = self.model.objects.all()[(current_page - 1)* limit: current_page*limit]
+        # paginator =  Paginator(object_list, limit)
+        # page = paginator.page(current_page).queryset_to_list()
+        page = object_list.queryset_to_list()
+        return page
