@@ -129,7 +129,10 @@ class LoginScreenView(FormView):
         return HttpResponseRedirect(self.get_success_url(username))
 
     def get_success_url(self, username):
-        return reverse_lazy("account_info", kwargs={"username": username})
+        next = self.request.GET.get("next", None)
+        if not next:
+            next = reverse_lazy("account_info", kwargs={"username": username})
+        return next
 
     def get(self, request, *args, **kwargs):
 

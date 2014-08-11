@@ -91,11 +91,17 @@ class ImageAddForm(forms.ModelForm):
                     raise forms.ValidationError(msg)
         return image
 
-
     class Meta:
         
         model = Image
         fields = ("title", "description", "img")
+        widgets = {
+            "title": forms.TextInput({
+                "class": "width-100"
+            })
+        }
+
+    
 
 class CustomLoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):

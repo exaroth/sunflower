@@ -1,28 +1,55 @@
 ﻿{% extends "base.html" %}
 
 
+{% block title %}
+Upload image
+{% endblock %}
+
+
+
 {% block content %}
 
-<h2>Upload image</h2>
+<div id="image-upload-form" class="unit-30 unit-centered">
+<h2 class="color-gray-light">Upload new image</h2>
 
-
-<form action="" method="post" enctype="multipart/form-data">
+<form action="" method="post" enctype="multipart/form-data" class="forms">
 	{% csrf_token %}
 	
-	<label for="title">{{ form.title.label_tag }}</label>
-	{{ form.title.errors }}
-	{{ form.title }}
-	<label for="description">{{ form.description.label_tag }}</label>
-	{{ form.description.errors }}
-	{{ form.description }}
-	<label for="path">{{ form.img.label_tag }}</label>
-	{{ form.img.errors }}
-	{{ form.img }}
-	{{ category_form.as_p }}
+	<label for="title">
+		Title of the image <span class="req">*</span>
+		{% if form.title.errors %}
+		<br />
+		{% for error in form.title.errors %}
+		<span class="error">{{ error }}</span>
+		{% endfor %}
+		{% endif %}
+		{{ form.title }}
+	</label>
+	<label for="description">
+		Description <span class="forms-desc">(optional)</span>
+		{% if form.description.errors %}
+		<br />
+		{% for error in form.description.errors %}
+		<span class="error">{{ error }}</span>
+		{% endfor %}
+		{% endif %}
+		{{ form.description }}
+	</label>
+	<label for="path">Image
 
-	<button type="submit">Submit</button>
+	{{ form.img }}
+	</label>
+	<p>
+	
+	<button type="submit" class="btn btn-outline">Submit</button>
+	
+	</p>
+
 
 </form>
+
+
+</div>
 
 {% endblock %}
 
