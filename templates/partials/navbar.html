@@ -1,0 +1,29 @@
+
+<div id="index-wrapper" class="unit-80 unit-centered">
+
+	<div id="navigation" class="unit-20 navbar">
+	<div id="site-title"><h2>{{ SITE_NAME }}</h2></div>
+
+	<ul>
+		{% if user.is_authenticated %}
+		<li class="nav-item">
+			<a href="{% url 'logout' %}">Logout</a>
+			</li>
+			<li class="nav-item">
+			<a href="{% url 'account_info' username=user.username %}">Account</a>
+			</li>
+		{% else %}
+			<li class="nav-item">
+			<a href="{% url 'login' %}">Login</a>
+			</li>
+			<li class="nav-item">
+			<a href="{% url 'account_create' %}">Create account</a>
+			</li>
+		{% endif %}
+			<li class="nav-item">
+			<a href="{% url 'image_upload' %}">Upload Image</a>
+			</li>
+
+		</ul>
+
+</div>

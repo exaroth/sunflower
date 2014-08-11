@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 import re
 
 from .models import Image, UserProfile, Category
@@ -33,8 +33,16 @@ class UserProfileForm(forms.ModelForm):
 
 class UserCreateForm(forms.ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(UserCreateForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs["class"] = "width-100"
+
+    password = forms.CharField(
+         widget=forms.PasswordInput()
+    )
     password2 = forms.CharField(
-        widget=forms.PasswordInput({"placeholder": "Repeat password"})
+        widget=forms.PasswordInput()
     )
 
     def clean_username(self):
@@ -67,11 +75,6 @@ class UserCreateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ("username", "password", "password2")
-        widgets = {
-            "username": forms.TextInput({"class": "my class",
-                                         "placeholder": "Enter your username"}),
-            "password": forms.PasswordInput({"placeholder": "Enter password"}),
-        }
 
 
 class ImageAddForm(forms.ModelForm):
@@ -93,6 +96,16 @@ class ImageAddForm(forms.ModelForm):
         
         model = Image
         fields = ("title", "description", "img")
+
+class CustomLoginForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super(CustomLoginForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs["class"] = "width-100"
+            if field_name == "username":
+                field.help_text = "Enter your username"
+            elif field_name == "password":
+                field.help_text = "Enter password"
 
 class CategoryForm(forms.ModelForm):
     

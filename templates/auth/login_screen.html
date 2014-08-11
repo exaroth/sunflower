@@ -8,13 +8,28 @@
 
 {% block content %}
 
-<h2>Login</h2>
+<div id="login-form" class="unit-20 unit-centered" >
+<h2 class="text-center color-gray-light">Login</h2>
 	
-<form action="" method="post">
+<form action="" method="post" class="forms">
 	{% csrf_token %}
-	{{ form.as_p }}
-	<button type="submit">Submit</button>
+	<label for="username">
+	Username <span class="forms-desc"> {{ form.username.help_text }} </span>
+	{{ form.username }}
+	</label>
+
+	<label for="password">
+		Pasword
+		<span class="forms-desc">{{ form.password.help_text }}</span>
+	{{ form.password }}
+   	</label>
+	<p>
+		<button type="submit" class="btn btn-blue">Submit</button>
+		<input type="button" value="Cancel" class="btn btn-red" onClick="javascript:history.go(-1)"/>
+	</p>
 </form>
+
+</div>
 
 {% endblock %}
 

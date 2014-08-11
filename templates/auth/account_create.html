@@ -8,30 +8,53 @@
 
 {% block content %}
 <!-- Create account view  -->
-	
-	<form action="" method="post" enctype="multipart/form-data">
+<div id="create-account-form" class="unit-25 unit-centered">
+
+	<form action="" method="post" enctype="multipart/form-data" class="forms">
 		{% csrf_token %}
 		{{ form.errors }}
 		<h2>Create account</h2>
-		<label for="username">{{ form.username.label_tag }}</label>
-		<p>{{ form.username.errors }}</p>
-		{{ form.username }}
+		<label for="username">
+			Username <span class="req">*</span>
+			<span class="forms-desc">Enter your username</span>
+			{% if form.username.errors %}
+			<br />
+			{% for error in form.username.errors %}
+			<span class="error">{{ error }}</span>
+			{% endfor %}
+			{% endif %}
+			{{ form.username }}
+		</label>
 
-		<label for="password">{{ form.password.label_tag }}</label>
-		<p>{{ form.password.errors }}</p>
-		{{ form.password }}
+		<label for="password">
+			Password <span class="req">*</span>
+			<span class="forms-desc">Enter password</span>
+			{% if form.password.errors %}
+			<br />
+			{% for error in form.password.errors %}
+			<span class="error">{{ error }}</span>
+			{% endfor %}
+			{% endif %}
+			{{ form.password }}
+		</label>
 
-		<label for="password2">{{ form.password2.label_tag }}</label>
-		<p>{{ form.password2.errors }}</p>
-		{{ form.password2 }}
+		<label for="password2">
+			Repeat password <span class="req">*</span>
+			{% if form.password2.errors %}
+			<br />
+			{% for error in form.password2.errors %}
+			<span class="error">{{ error }}</span>
+			{% endfor %}
+			{% endif %}
+			{{ form.password2 }}
+		</label>
 
-		<label for="homepage">{{ extended_form.homepage.label_tag }}</label>
-		{{ extended_form.homepage }}]
-		<label for="avatar">{{ extended_form.portrairatavctag }}</label>
-		{{ extended_form.avatar }}
-
-		<button type="submit">Submit</button>
+		<button type="submit" class="btn btn-blue">Submit</button>
+		<input type="button" value="Cancel" class="btn btn-red" onClick="javascript:history.go(-1)"/>
 	</form>
+
+</div>
+	
 
 
 {% endblock %}

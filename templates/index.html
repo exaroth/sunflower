@@ -5,12 +5,17 @@
 {% endblock %}
 
 
+{% block header %}
+{% include "partials/navbar.html" %}
+
+{% endblock %}
+
 
 {% block content %}
 <!-- Index page  -->
-<h2>Index page</h2>
 
 {% if images %}
+<div id="index-images-list" class="unit-100">
 
 {% for image in images %}
 	
@@ -26,7 +31,11 @@
 
 <h3>No pictures uploaded yet</h3>
 
+</div>
+
 {% endif %}
+
+</div>
 
 
 {% endblock %}

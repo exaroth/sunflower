@@ -93,7 +93,6 @@ TEMPLATE_CONTEXT_PROCESSORS  = settings.TEMPLATE_CONTEXT_PROCESSORS
 TEMPLATE_CONTEXT_PROCESSORS += (
     "core.context_processors.additional_info",
 )
-print TEMPLATE_CONTEXT_PROCESSORS
 
 
 # Static files (CSS, JavaScript, Images)

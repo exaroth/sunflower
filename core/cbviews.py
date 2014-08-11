@@ -22,7 +22,8 @@ from django.views.generic import(
 from .models import Image, UserProfile
 from .forms import (
     UserCreateForm, UserProfileForm,
-    ImageAddForm, CategoryForm
+    ImageAddForm, CategoryForm,
+    CustomLoginForm
 ) 
 
 
@@ -58,38 +59,29 @@ class CreateAccountView(CreateView):
 
         self.object = None
         form = UserCreateForm
-        extended_form = UserProfileForm
-        return self.render_to_response(self.get_context_data(form=form,
-                                                             extended_form=extended_form))
+        return self.render_to_response(self.get_context_data(form=form))
 
     def post(self, request, *args, **kwargs):
-
         self.object = None
         form = UserCreateForm(request.POST)
-        extended_form = UserProfileForm(request.POST, request.FILES)
-
-        if(form.is_valid() and extended_form.is_valid()):
-            return self.form_valid(form, extended_form)
+        if(form.is_valid()):
+            return self.form_valid(form)
         else:
-            return self.form_invalid(form, extended_form)
+            return self.form_invalid(form)
 
-    def form_valid(self, form, extended_form):
+    def form_valid(self, form):
         username = form.cleaned_data["username"]
         password = form.cleaned_data["password"]
         user = form.save(commit=True)
-        user_profile = extended_form.save(commit=False)
-        user_profile.user = user
-        user_profile.save()
         
         authenticated = authenticate(username=username, password=password)
         login(self.request, authenticated)
         return HttpResponseRedirect(reverse("index"))
 
-    def form_invalid(self, form, extended_form):
+    def form_invalid(self, form):
 
         return self.render_to_response(self.get_context_data(
             form=form,
-            extended_form = extended_form
         ))
 
 class AccountInfoView(DetailView):
@@ -127,7 +119,7 @@ class AccountInfoView(DetailView):
 
 class LoginScreenView(FormView):
 
-    form_class = AuthenticationForm
+    form_class = CustomLoginForm
     template_name = "auth/login_screen.html"
 
     def form_valid(self, form):
