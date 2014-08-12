@@ -1,0 +1,25 @@
+{
+  "name": "Sunflower",
+  "version": "0.0.1",
+  "homepage": "https://github.com/exaroth/sunflower",
+  "authors": [
+    "Konrad Wąsowicz <exaroth@gmail.com>"
+  ],
+  "description": "SImple image sharing site",
+  "moduleType": [
+    "es6",
+    "globals"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1"
+  }
+}
