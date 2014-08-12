@@ -29,7 +29,7 @@
 		<!-- build:css styles/components/main.min.css -->
 
 		<link rel="stylesheet" href="{% static 'css/kube.min.css' %}" media="all">
-		<link rel="stylesheet" href="{% static 'css/style.css' %}" media="all">
+		<link rel="stylesheet" href="{% static 'css/styles.css' %}" media="all">
 
 	</head>
 	<body>
@@ -51,7 +51,13 @@
 		<!-- Javascript files -->
 		{% endblock %}
 
-		</div>
+	</div>
+
+	{% if DEBUG %}
+		<script src="//localhost:35729/livereload.js"></script>
+
+	{% endif %}
+
 
 
 

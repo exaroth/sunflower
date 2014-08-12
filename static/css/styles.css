@@ -1,3 +1,21 @@
+.hidden {
+  position: absolute;
+  top: auto;
+  left: -999em;
+  right: auto;
+}
+#main-wrapper {
+  margin-top: 2em;
+}
 .nav-item {
-	display: inline-block;
+  width: 100%;
+  color: red;
+  display: inline !important;
+}
+.nav-item > a {
+  text-align: center;
+}
+* {
+  background: #eee !important;
+  background: rgba(0, 0, 0, 0.05) !important;
 }
