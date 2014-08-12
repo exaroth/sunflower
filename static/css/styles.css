@@ -7,15 +7,36 @@
 #main-wrapper {
   margin-top: 2em;
 }
+@media screen and (max-width: 750px) {
+  #main-wrapper {
+    margin-top: 0;
+  }
+}
+.title-link {
+  text-align: center;
+}
 .nav-item {
   width: 100%;
   color: red;
   display: inline !important;
+  font-size: 13px;
 }
 .nav-item > a {
-  text-align: center;
+  color: #333333 !important;
 }
-* {
-  background: #eee !important;
-  background: rgba(0, 0, 0, 0.05) !important;
+.nav-item > a:active,
+.nav-item > a:hover {
+  color: #4d4d4d !important;
+}
+#navigation {
+  margin: 4em 2em 0 0;
+}
+#navigation hr {
+  width: 70%;
+}
+#index-images-list {
+  padding-top: 4em;
+}
+#account-wrapper-inner {
+  margin-top: 4em;
 }

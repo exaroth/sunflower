@@ -16,23 +16,24 @@
 {% if images %}
 <div id="index-images-list" class="unit-100">
 
-{% for image in images %}
-	
-<div class="picture-frame">
-	<a href="{% url 'image_detail' pk=image.pk  %}"><img src="{{ image.thumb.url }}" alt="{{ image.title }}" /></a>
-	<a href="{% url 'image_delete' pk=image.pk %}">Delete</a>
-</div>
+		{% for image in images %}
 
-{% endfor %}
+		<div class="picture-frame">
+			<a href="{% url 'image_detail' pk=image.pk  %}"><img src="{{ image.thumb.url }}" alt="{{ image.title }}" /></a>
+		</div>
+
+		{% endfor %}
 
 
-{% else %}
+		{% else %}
 
-<h3>No pictures uploaded yet</h3>
+		<h3>No pictures uploaded yet</h3>
 
-</div>
+	</div>
 
-{% endif %}
+	{% endif %}
+
+
 
 </div>
 
