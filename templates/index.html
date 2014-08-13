@@ -19,12 +19,10 @@
 		<ul class="blocks-5">
 		{% for image in images %}
 		<li>
-		
 		<div class="picture-frame">
 			<a href="{% url 'image_detail' pk=image.pk  %}"><img src="{{ image.thumb.url }}" alt="{{ image.title }}" /></a>
 		</div>
 		</li>
-
 		{% endfor %}
 		
 		

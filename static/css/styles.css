@@ -40,3 +40,45 @@
 #account-wrapper-inner {
   margin-top: 4em;
 }
+#account-settings-panel {
+  background-color: #e6e6e6;
+  border: 1px solid #cccccc;
+  opacity: .6;
+  padding: 10px;
+  box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2em;
+}
+.cool-button {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  padding: 0 21px;
+  height: 39px;
+  line-height: 37px;
+  -webkit-border-radius: 3px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 3px;
+  -moz-background-clip: padding;
+  border-radius: 3px;
+  background-clip: padding-box;
+  outline: medium none;
+  text-decoration: none;
+}
+.cool-button:hover,
+.cool-button:active {
+  border: 1px solid #cccccc;
+  background-color: #e6e6e6;
+}
+.cool-button-blue,
+.cool-butti:hover {
+  border: 1px solid #1F98E5;
+  color: #FFF;
+  background-color: #37A9F2;
+  background-image: 8121991;
+  background-image: -webkit-linear-gradient(#59bdfc, #37a9f2);
+  background-image: -moz-linear-gradient(#59bdfc, #37a9f2);
+  background-image: -o-linear-gradient(#59bdfc, #37a9f2);
+  background-image: linear-gradient(#59bdfc, #37a9f2);
+}

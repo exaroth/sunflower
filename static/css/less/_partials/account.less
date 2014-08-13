@@ -3,3 +3,43 @@
 #account-wrapper-inner {
 	margin-top: 4em;
 }
+
+#account-settings-panel {
+	background-color: @black-10;
+	border: 1px solid @black-20;
+	opacity: .6;
+	padding: 10px;
+	.delicate-shadow();
+	margin-bottom: 2em;
+
+}
+#account-info-image-list {
+}
+
+.cool-button {
+	display: block;
+	font-size: 15px;
+	font-weight: 700;
+	text-align: center;
+	padding: 0 21px;
+	height: 39px;
+	line-height: 37px;
+	.border-radius(3px);
+	outline: medium none;
+	text-decoration: none;
+	&:hover,
+    &:active	{
+		border: 1px solid @black-20;
+		background-color: @black-10;
+
+}
+}
+
+.cool-button-blue,
+.cool-butti:hover {
+	border: 1px solid #1F98E5;
+	color: #FFF;
+	background-color: #37A9F2;
+	.background-image(linear-gradient(#59BDFC, #37A9F2));
+}
+

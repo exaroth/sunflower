@@ -1,7 +1,7 @@
 ﻿{% extends "base.html" %}
 
 {% block title %}
-{{ user.username }} - Account 
+{{ user.username }} - Account
 {% endblock %}
 
 
@@ -9,36 +9,49 @@
 {% block content %}
 
 <div id="account-wrapper" class="unit-80 unit-centered">
-	<a href="{% url 'index' %}"> <h1 class="title-link">Sunflower</h1> 
+	<a href="{% url 'index' %}"> <h1 class="title-link">Sunflower</h1>
 	</a>
+	<button class="cool-button cool-button-blue">Submit</button>
 
 	<div id="account-wrapper-inner" class="units-row">
 
 
-		<h2>Hello {{ user_details.username }}</h2>
-		<div id="account-settings-panel" class="unit-60 well">
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		</div>
-		{% if additional %}
-		<img src="{{ additional_info.avatar.url }}" alt="Your avatar" />
-		<p><strong>Your homepage: </strong>{{ additional_info.homepage }}</p>
-		{% endif %}
+		<h2>Hello {{ user.username }}</h2>
+		{% if additional_info %}
+		<div id="account-settings-panel" class="unit-60 well unit-centered">
+			<form class="forms" action="" method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				{{ additional_info.errors }}
+				<label for="avatar">
+					Portrait
+					{% if additional_info.avatar.url %}
+					<img src="{{ additional_info.avatar.url }}" alt="Your avatar"  />
+					{{ additional_info.avatar.url }}
+					{% endif %}
+					{{ additional_info.avatar }}
+				</label>
 
+				<label for="homepage">
+					Homepage
+					{{ additional_info.homepage }}
+				</label>
+				<button type="submit">Submit</button>
+			</form>
+		</div>
+		{% endif %}
 
 		{% if not images %}
 		<p>No images added yet</p>
 		{% else %}
+		<h2>Your images</h2>
+		<div id="account-info-image-list" class="unit-90 unit-centered">
+			<ul id="account-info-image-wrapper" class="blocks-5">
+				{% for image in images %}
+				<li> <img src="{{ image.thumb.url }}" alt="{{ image.title }}" /> </li>
+				{% endfor %}
+			</ul>
 
-		{% for image in images %}
-		<img src="{{ image.thumb.url }}" alt="{{ image.title }}" />
-		<h3>{{ image.title }}</h3>
-		{% if image.description %}
-		<p>{{ image.description }}</p>
-		{% endif %}
-		<a href="{% url 'image_delete' pk=image.pk %}">Delete</a>
-
-		{% endfor %}
-
+		</div>
 		{% endif %}
 
 	</div>
@@ -52,5 +65,3 @@
 
 
 {% endblock %}
-
-

@@ -73,7 +73,8 @@ class CreateAccountView(CreateView):
         username = form.cleaned_data["username"]
         password = form.cleaned_data["password"]
         user = form.save(commit=True)
-        
+        user_profile = UserProfile(user=user)
+        user_profile.save()
         authenticated = authenticate(username=username, password=password)
         login(self.request, authenticated)
         return HttpResponseRedirect(reverse("index"))
@@ -90,31 +91,50 @@ class AccountInfoView(DetailView):
     context_object_name = "user_details"
     slug_field = "username"
     slug_url_kwarg = "username"
-    model = User
     
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
+
         if self.request.user.username != self.kwargs["username"]:
             raise Http404
+
         return super(AccountInfoView, self).dispatch(*args, **kwargs)
 
-    def get_context_data(self, **kwargs):
+    def get(self, request, *args, **kwargs):
+        self.object = None
+        additional_info_form = UserProfileForm(instance=self.get_object().profile)
+        return self.render_to_response(self.get_context_data(additional_info_form))
+        
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        additional_info_form = UserProfileForm(request.POST, request.FILES, instance = self.get_object().profile)
+        if additional_info_form.is_valid():
+            return self.form_valid(additional_info_form)
+        return self.form_invalid(additional_info_form)
 
+    def form_valid(self, form):
+        
+        new_profile_data = form.save(commit=False)
+        new_profile_data.user = self.request.user
+        print new_profile_data.avatar
+        new_profile_data.save()
+        return HttpResponseRedirect(reverse_lazy("account_info", kwargs={"username": self.request.user.username }))
+
+    def form_invalid(self, form):
+
+        return self.render_to_response(self.get_context_data(form))
+
+
+    def get_context_data(self, additional_info, **kwargs):
         context = super(AccountInfoView, self).get_context_data(**kwargs)
         user_data = self.get_object()
-        try:
-            additional = user_data.profile
-        except:
-            additional = None
         images = user_data.images.all()
-        context["additional_info"] = additional
+        context["additional_info"] = additional_info
         context["images"] = images
         return context
 
     def get_object(self):
-        return self.model.objects.\
-                filter(username=self.\
-                       kwargs["username"]).select_related().get()
+        return self.request.user
 
 
 class LoginScreenView(FormView):
@@ -253,7 +273,6 @@ class JSONImageView(JSONResponseView, View):
         return object_list
 
     def get_context_data(self):
-        object_list = self.get_object()
         pagination = self.get_pagination()
         item_count = object_list.count()
         page = object_list[pagination[0]: pagination[1]].queryset_to_list()
