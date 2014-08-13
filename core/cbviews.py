@@ -102,11 +102,15 @@ class AccountInfoView(DetailView):
 
     def get(self, request, *args, **kwargs):
         self.object = None
+        if request.user.is_superuser:
+            return HttpResponseRedirect("/admin")
         additional_info_form = UserProfileForm(instance=self.get_object().profile)
         return self.render_to_response(self.get_context_data(additional_info_form))
         
     def post(self, request, *args, **kwargs):
         self.object = None
+        if request.user.is_superuser:
+            return HttpResponseRedirect("/admin")
         additional_info_form = UserProfileForm(request.POST, request.FILES, instance = self.get_object().profile)
         if additional_info_form.is_valid():
             return self.form_valid(additional_info_form)
@@ -244,7 +248,7 @@ class ImageDetailView(DetailView):
     def get(self, request, *args, **kwargs):
         img = self.get_object()
         if img.author != request.user:
-            raise Http404()
+            return HttpResponseForbidden()
         return super(ImageDetailView, self).get(request, *args, **kwargs)
 
 class JSONResponseView(object):
