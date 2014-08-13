@@ -236,6 +236,17 @@ class ImageDetailView(DetailView):
     model = Image
     context_object_name = "image"
 
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ImageDetailView, self).dispatch(*args, **kwargs)
+
+
+    def get(self, request, *args, **kwargs):
+        img = self.get_object()
+        if img.author != request.user:
+            raise Http404()
+        return super(ImageDetailView, self).get(request, *args, **kwargs)
+
 class JSONResponseView(object):
     
     """
