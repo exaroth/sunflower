@@ -1,11 +1,12 @@
+import re
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-import re
+from django.conf import settings
+from django.core.validators import URLValidator
 
 from .models import Image, UserProfile, Category
 from .helpers import username_valid
-from django.conf import settings
 
 
 class ImageForm(forms.ModelForm):
@@ -22,18 +23,25 @@ class UserProfileForm(forms.ModelForm):
     def clean_homepage(self):
 
         homepage = self.cleaned_data["homepage"]
-        if not homepage.startswith("http://"):
-            homepage = "http://" + homepage
+        if homepage:
+            if not homepage.startswith("http://"):
+                homepage = "http://" + homepage
+            print homepage
+            validate = URLValidator()
+            try:
+                validate(homepage)
+            except:
+                raise forms.ValidationError("Please enter a proper url")
         return homepage
 
     class Meta:
 
         model = UserProfile
         exclude = ("user",)
-
         widgets = {
             "homepage": forms.TextInput({
-                "class": "width-100"
+                "class": "width-100",
+                "placeholder": "http://..."
             })
         }
 

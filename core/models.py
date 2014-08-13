@@ -33,7 +33,7 @@ class UserProfile(models.Model):
 
 
     user = models.OneToOneField(User, related_name="profile")
-    homepage = models.URLField(blank=True)
+    homepage = models.TextField(blank=True)
     avatar = ProcessedImageField(upload_to="avatars",
                                  blank=True,
                                  processors=[SmartResize(100, 100)],
