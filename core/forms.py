@@ -18,6 +18,7 @@ class ImageForm(forms.ModelForm):
 
 class UserProfileForm(forms.ModelForm):
 
+
     def clean_homepage(self):
 
         homepage = self.cleaned_data["homepage"]
@@ -29,6 +30,12 @@ class UserProfileForm(forms.ModelForm):
 
         model = UserProfile
         exclude = ("user",)
+
+        widgets = {
+            "homepage": forms.TextInput({
+                "class": "width-100"
+            })
+        }
 
 
 class UserCreateForm(forms.ModelForm):
