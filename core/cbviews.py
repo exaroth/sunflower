@@ -12,6 +12,7 @@ from django.core import serializers
 from django.utils import simplejson
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.list import MultipleObjectMixin
+from django.views.generic.edit import FormMixin
 from django.views.generic import(
     TemplateView, ListView,
     RedirectView, DetailView,
@@ -23,7 +24,7 @@ from .models import Image, UserProfile
 from .forms import (
     UserCreateForm, UserProfileForm,
     ImageAddForm, CategoryForm,
-    CustomLoginForm
+    CustomLoginForm, ImageDescriptionForm
 ) 
 
 
@@ -234,22 +235,48 @@ class ImageDeleteView(DeleteView):
         return obj
 
 
-class ImageDetailView(DetailView):
+class ImageDetailView(DetailView, FormMixin):
 
     template_name = "image_detail.html"
     model = Image
     context_object_name = "image"
+    form_class = ImageDescriptionForm
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
+        img = self.get_object()
+        if img.author != self.request.user:
+            return HttpResponseForbidden()
         return super(ImageDetailView, self).dispatch(*args, **kwargs)
 
 
-    def get(self, request, *args, **kwargs):
-        img = self.get_object()
-        if img.author != request.user:
-            return HttpResponseForbidden()
-        return super(ImageDetailView, self).get(request, *args, **kwargs)
+    def post(self, request, *args, **kwargs):
+
+        self.object = self.get_object()
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(ImageDetailView, self).get_context_data(**kwargs)
+        form_class = self.get_form_class()
+        context["form"] = self.get_form(form_class)
+        return context
+
+
+    def get_form_kwargs(self):
+        kwargs = super(ImageDetailView, self).get_form_kwargs()
+        kwargs["instance"] = self.get_object()
+        return kwargs
+
+    def form_valid(self, form):
+        form.save()
+        return HttpResponseRedirect(reverse_lazy("image_detail", kwargs = {"pk": self.get_object().pk}))
+
+
 
 class JSONResponseView(object):
     
@@ -289,6 +316,7 @@ class JSONImageView(JSONResponseView, View):
 
     def get_context_data(self):
         pagination = self.get_pagination()
+        object_list = self.get_object()
         item_count = object_list.count()
         page = object_list[pagination[0]: pagination[1]].queryset_to_list()
         if not page:

@@ -4,7 +4,31 @@
 
 <!-- Image detail  -->
 
-<img src="{{ image.img.url }}" alt="{{ image.title }}" />
+<a href="{% url 'index' %}"> <h1 class="title-link">Sunflower</h1> </a>
+<div id="image-detail-wrapper" class="unit-80 unit-centered">
+
+	<div class="units-row">
+
+		<div class="image-detail-img-container unit-60">
+			<figure class="units-row">
+				<img src="{{ image.img.url }}" alt="{{ image.title }}">
+			</figure>
+
+		</div>
+		<div class="image-detail-img-description unit-40">
+			<h2 >{{ image.title }}</h2>
+			<form class="img-description-form forms" action="" method="post">
+				{% csrf_token %}
+				{{ form.as_p }}
+				<button type="submit">Submit</button>
+			</form>
+
+		</div>
+
+	</div>
+
+</div>
+
 
 {% endblock %}
 

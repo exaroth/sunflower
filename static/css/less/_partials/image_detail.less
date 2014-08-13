@@ -1,0 +1,25 @@
+﻿// Styles related to image detail view
+
+
+#image-detail-wrapper {
+	margin-top: 6em !important;
+}
+
+.image-detail-img-container {
+
+	& > figure {
+		position: relative;
+		& > img {
+			max-width: 400px;
+			max-height: 400px;
+			.absolute-center();
+			padding: 20px;
+			border: 1px solid @black-20;
+			@media all and (max-width: @sm){
+				position: relative !important;
+				}
+
+		}
+	}
+
+}

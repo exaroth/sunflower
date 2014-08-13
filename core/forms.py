@@ -128,6 +128,13 @@ class CustomLoginForm(AuthenticationForm):
             elif field_name == "password":
                 field.help_text = "Enter password"
 
+
+class ImageDescriptionForm(forms.ModelForm):
+
+    class Meta:
+        model = Image
+        fields = ("description",)
+
 class CategoryForm(forms.ModelForm):
     
     class Meta:
