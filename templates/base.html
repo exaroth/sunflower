@@ -53,8 +53,12 @@
 
 	</div>
 
+
 	{% if DEBUG %}
-		<script src="//localhost:35729/livereload.js"></script>
+	<script src="//localhost:35729/livereload.js"></script>
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="{% static 'js/scripts.js' %}"></script>
+	<script src="{% static 'bower_components/mustache/mustache.js' %}"></script>
 
 	{% endif %}
 

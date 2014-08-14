@@ -277,7 +277,6 @@ class ImageDetailView(DetailView, FormMixin):
         return HttpResponseRedirect(reverse_lazy("image_detail", kwargs = {"pk": self.get_object().pk}))
 
 
-
 class JSONResponseView(object):
     
     """

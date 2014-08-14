@@ -17,10 +17,11 @@
 		</div>
 		<div class="image-detail-img-description unit-40">
 			<h2 >{{ image.title }}</h2>
+			<p><small>Uploaded : {{ image.date_added }}</small></p>
 			<form class="img-description-form forms" action="" method="post">
 				{% csrf_token %}
 				{{ form.as_p }}
-				<button type="submit">Submit</button>
+				<button type="submit">Save</button>
 			</form>
 
 		</div>

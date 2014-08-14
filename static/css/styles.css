@@ -15,6 +15,9 @@
 .title-link {
   text-align: center;
 }
+textarea {
+  resize: none;
+}
 .nav-item {
   width: 100%;
   color: red;

@@ -134,6 +134,11 @@ class ImageDescriptionForm(forms.ModelForm):
     class Meta:
         model = Image
         fields = ("description",)
+        widgets = {
+            "description": forms.Textarea({
+                "placeholder": "No description"
+            })
+        }
 
 class CategoryForm(forms.ModelForm):
     

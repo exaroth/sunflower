@@ -20,6 +20,8 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "~2.1.1"
+    "jquery": "~2.1.1",
+    "mustache": "~0.8.2",
+    "salvattore": "~1.0.7"
   }
 }

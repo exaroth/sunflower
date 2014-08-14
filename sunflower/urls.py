@@ -16,8 +16,6 @@ from core.cbviews import (IndexView,
                          )
 
 urlpatterns = patterns('',
-                       # Examples:
-                       # url(r'^$', 'sunflower.views.home', name='home'),
                        url(r'^admin/', include(admin.site.urls)),
                        url(r"^$", IndexView.as_view(), name="index"),
                        url(r"^index/$", RedirectIndexView.as_view()),
@@ -29,7 +27,6 @@ urlpatterns = patterns('',
                        url(r"image/(?P<pk>\d+)$", ImageDetailView.as_view(), name="image_detail"),
                        url(r"image/delete/(?P<pk>\d+)", ImageDeleteView.as_view(), name="image_delete"),
                        url(r"image_list/(?P<items>\d{1,2})/(?P<page>\d+)$", JSONImageView.as_view(), name="image_json_view"),
-
                       )
     
 
