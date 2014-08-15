@@ -26,10 +26,16 @@ textarea {
   background-color: rgba(255, 255, 255, 0.7);
   top: 0;
   left: 0;
+  opacity: 0;
+  visibility: hidden;
 }
-.md-show ~ .md-overlay {
+.md-show ~ .md-overlay,
+.md-modal.md-show {
   opacity: 1;
   visibility: visible;
+}
+body.modal-open {
+  overflow: hidden;
 }
 .md-modal {
   position: fixed;
@@ -52,6 +58,20 @@ textarea {
   background-color: #FFF;
   border: 1px solid rgba(125, 125, 125, 0.2);
   padding: 50px 0;
+  -webkit-transition: opacity 0.2s ease-in;
+  -moz-transition: opacity 0.2s ease-in;
+  -o-transition: opacity 0.2s ease-in;
+  transition: opacity 0.2s ease-in;
+  visibility: none;
+  opacity: 0;
+}
+.md-modal-close {
+  color: #4d4d4d;
+  text-decoration: none;
+  font-size: 1.4em;
+  position: absolute;
+  top: 20px;
+  right: 40px;
 }
 .md-modal-image {
   position: relative;
@@ -60,6 +80,7 @@ textarea {
 }
 .md-modal-image img {
   max-width: 80%;
+  max-height: 80vh;
   position: relative;
   left: 50%;
   -webkit-transform: translateX(-50%);

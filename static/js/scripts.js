@@ -4,7 +4,9 @@
 
 	var $document = $(document),
 		$window = $(window),
+		$body = $("body"),
 		$indexImageGrid = $("#index-image-grid"),
+		$imageModal = $(".md-modal"),
 		images_per_page = 10,
 		page = 1,
 		bottom = false,
@@ -17,7 +19,7 @@
 
 	// Templates
 	var imageItemTemplate = "<a href='#' class='index-img-open' data-img='{{img}}' data-author='{{author}}' data-desc='{{description}}' data-title='{{title}}'><img src='{{ thumb }}' title='{{ title  }}' class='index-image-item' data-img-href={{img}}></a>",
-		imageDetailsModalTemplate = "<div class='image-popup'></div>"
+		imageDetailModalTemplate='<a href="#" class="md-modal-close">&times;</a> <div class="md-modal-image "><img src="{{img}}" alt="{{title}}" /> </div><div class="md-modal-desc"><h3 class="md-modal-title">{{title}}</h3> <h6>Uploaded by: {{author}}</h6> <p>{{description}}</p> </div>'
 
 	$document.ready(function(){
 		init();
@@ -51,10 +53,14 @@
 
 	function imageModalDisplay(el){
 		data = new Object();
+
 		for(var i = 0; i < modalFields.length; i++){
 			 data[modalFields[i]] = el.data(modalFields[i]);
-		}
+		};
 
+		var template = Mustache.render(imageDetailModalTemplate, data);
+		$imageModal.append(template);
+		$imageModal.addClass("md-show");
 	}
 
 	function getImages(page, successFunc){
