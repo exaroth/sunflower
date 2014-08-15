@@ -32,6 +32,7 @@ textarea {
 .md-modal.md-show{
 	opacity: 1;
 	visibility: visible;
+	display: block;
 }
 
 body.modal-open {
@@ -49,11 +50,11 @@ body.modal-open {
 	height: auto;
 	z-index: 2000;
 	background-color: #FFF;
-	border: 1px solid rgba(125,125, 125, .2);
+	outline: 1px solid rgba(125,125,125, .2);
 	padding: 50px 0;
-	.transition(opacity, .2s, ease-in);
 	visibility: none;
 	opacity: 0;
+	display: none;
 }
 
 .md-modal-close {
@@ -78,12 +79,16 @@ body.modal-open {
 }
 
 .md-modal-desc {
-	 margin-top: 40px;
-	 padding: 0 40px;
-	 .md-modal-title{
-		  margin-bottom: 20px;
-}
-h6 {
-	 margin-bottom: 10px;
+	margin-top: 40px;
+	padding: 0 40px;
+	.md-modal-title{
+		margin-bottom: 20px;
+	}
+	h6 {
+		margin-bottom: 10px;
+	}
+	p {
+		 color: @black-60;
+		 margin-top: 40px;
 }
 }

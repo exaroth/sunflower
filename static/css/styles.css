@@ -33,6 +33,7 @@ textarea {
 .md-modal.md-show {
   opacity: 1;
   visibility: visible;
+  display: block;
 }
 body.modal-open {
   overflow: hidden;
@@ -56,14 +57,11 @@ body.modal-open {
   height: auto;
   z-index: 2000;
   background-color: #FFF;
-  border: 1px solid rgba(125, 125, 125, 0.2);
+  outline: 1px solid rgba(125, 125, 125, 0.2);
   padding: 50px 0;
-  -webkit-transition: opacity 0.2s ease-in;
-  -moz-transition: opacity 0.2s ease-in;
-  -o-transition: opacity 0.2s ease-in;
-  transition: opacity 0.2s ease-in;
   visibility: none;
   opacity: 0;
+  display: none;
 }
 .md-modal-close {
   color: #4d4d4d;
@@ -99,6 +97,10 @@ body.modal-open {
 .md-modal-desc h6 {
   margin-bottom: 10px;
 }
+.md-modal-desc p {
+  color: #666666;
+  margin-top: 40px;
+}
 .nav-item {
   width: 100%;
   color: red;
@@ -118,14 +120,22 @@ body.modal-open {
 #navigation hr {
   width: 70%;
 }
-#index-images-list {
-  padding-top: 4em;
+.image-container {
+  margin-bottom: 20px;
 }
-#index-image-grid[data-columns]::before {
+#index-wrapper {
+  margin-top: 60px;
+}
+#index-image-grid[data-columns]:before {
   content: '3 .column.size-1of3';
 }
+.index-img-open {
+  display: block;
+  height: 100%;
+  width: 100%;
+  z-index: 999;
+}
 .image-container {
-  margin: 40px 0 ;
   display: none;
 }
 .column {
@@ -133,7 +143,7 @@ body.modal-open {
 }
 .size-1of3 {
   width: 22%;
-  padding: 20px 20px;
+  padding: 0 10px;
 }
 #account-wrapper-inner {
   margin-top: 4em;
@@ -183,23 +193,19 @@ body.modal-open {
 #image-detail-wrapper {
   margin-top: 6em !important;
 }
-.image-detail-img-container > figure {
+.image-detail-img-container {
   position: relative;
 }
-.image-detail-img-container > figure > img {
+.image-detail-img-container img {
   max-width: 400px;
   max-height: 400px;
-  position: absolute;
-  margin: auto;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
   padding: 20px;
   border: 1px solid #cccccc;
-}
-@media all and (max-width: 750px) {
-  .image-detail-img-container > figure > img {
-    position: relative !important;
-  }
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+  position: relative;
 }

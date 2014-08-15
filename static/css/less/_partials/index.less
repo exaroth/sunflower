@@ -20,24 +20,33 @@
 }
 }
 
-#index-images-list{
-	padding-top: 4em;
+.image-container {
+	margin-bottom: 20px;
 }
 
-#index-image-grid[data-columns]::before {
+#index-wrapper {
+	margin-top: 60px;
+}
+#index-image-grid[data-columns]:before {
 	content: '3 .column.size-1of3';
+}
+.index-img-open {
+	 display: block;
+	 height: 100%;
+	 width: 100%;
+	 z-index: 999;
+}
 
- }
-
- .image-container {
-	  margin: 40px 0 ;
+.image-container {
 	  display: none;
 }
+
 .column {
    	float: left;
   }
+
 .size-1of3 {
    	width: 22%;
-	padding: 20px 20px;
+	padding: 0 10px;
  }
 

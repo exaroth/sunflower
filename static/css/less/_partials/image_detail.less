@@ -6,20 +6,17 @@
 }
 
 .image-detail-img-container {
+	position: relative;
 
-	& > figure {
+	img {
+		max-width: 400px;
+		max-height: 400px;
+		padding: 20px;
+		border: 1px solid @black-20;
+		left: 50%;
+		.translateX(-50%);
 		position: relative;
-		& > img {
-			max-width: 400px;
-			max-height: 400px;
-			.absolute-center();
-			padding: 20px;
-			border: 1px solid @black-20;
-			@media all and (max-width: @sm){
-				position: relative !important;
-				}
+}
 
-		}
-	}
 
 }

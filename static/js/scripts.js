@@ -19,7 +19,7 @@
 
 	// Templates
 	var imageItemTemplate = "<a href='#' class='index-img-open' data-img='{{img}}' data-author='{{author}}' data-description='{{description}}' data-title='{{title}}'><img src='{{ thumb }}' title='{{ title  }}' class='index-image-item' data-img-href={{img}}></a>",
-		imageDetailModalTemplate='<a href="#" class="md-modal-close">&times;</a> <div class="md-modal-image "><img src="{{img}}" alt="{{title}}" /> </div><div class="md-modal-desc"><h3 class="md-modal-title">{{title}}</h3> <h6>Uploaded by: {{author}}</h6> <p>{{description}}</p> </div>'
+		imageDetailModalTemplate='<a href="#" class="md-modal-close">&times;</a> <div class="md-modal-image "><img src="{{img}}" alt="{{title}}" /> </div><div class="md-modal-desc"><h3 class="md-modal-title">{{title}}</h3><h6>Uploaded by {{author}}</h6> <p>{{description}}</p> </div>'
 
 	$document.ready(function(){
 		init();
@@ -39,6 +39,14 @@
 			imageModalDisplay($(this));
 		});
 
+		$document.keyup(function(e){
+			if (e.keyCode == 27){
+				if ($body.hasClass("modal-open")){
+					closeModalWindow();
+				}
+			}
+		});
+
 		$document.on("click", ".md-modal-close", function(e){
 			e.preventDefault();
 			closeModalWindow();
@@ -54,20 +62,22 @@
 			}
 		});
 		images_shown = images_per_page;
+		salvattore["register_grid"]($indexImageGrid[0]);
 		getImages(1, appendIndexImages);
 	};
 
 	function imageModalDisplay(el){
 		data = new Object();
-
 		for(var i = 0; i < modalFields.length; i++){
+			if ((modalFields[i] === "description") & !el.data("description")){
+				data["description"] = "No description given";
+				continue;
+			}
 			 data[modalFields[i]] = el.data(modalFields[i]);
 		};
-		console.log(data);
 
 		var template = Mustache.render(imageDetailModalTemplate, data);
-		$imageModal.append(template);
-		$imageModal.addClass("md-show");
+		$imageModal.append(template).addClass("md-show")
 		$body.addClass("modal-open");
 	}
 
@@ -100,7 +110,7 @@
 				el = Mustache.render(imageItemTemplate, imageData[count])
 				var item = document.createElement("div");
 				item.className = "image-container";
-				salvattore["append_elements"]($indexImageGrid.get()[0], [item])
+				salvattore["append_elements"]($indexImageGrid[0], [item])
 				item.innerHTML = el;
 				$(item).fadeIn("fast");
 			}

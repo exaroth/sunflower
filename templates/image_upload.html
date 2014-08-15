@@ -25,18 +25,7 @@ Upload image
 		{% endif %}
 		{{ form.title }}
 	</label>
-	<label for="description">
-		Description <span class="forms-desc">(optional)</span>
-		{% if form.description.errors %}
-		<br />
-		{% for error in form.description.errors %}
-		<span class="error">{{ error }}</span>
-		{% endfor %}
-		{% endif %}
-		{{ form.description }}
-	</label>
 	<label for="path">Image
-
 	{{ form.img }}
 	</label>
 	<p>
