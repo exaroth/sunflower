@@ -7,7 +7,8 @@
 		$indexImageGrid = $("#index-image-grid"),
 		images_per_page = 10,
 		page = 1,
-		bottom = false
+		bottom = false,
+		modalFields = ["title", "description", "author", "img"]
 
 	var images_list,
 		number_of_images,
@@ -15,7 +16,8 @@
 		images_shown
 
 	// Templates
-	var imageItemTemplate = "<img src='{{ thumb }}' title='{{ title  }}' class='index-image-item' data-img-href={{img}}>"
+	var imageItemTemplate = "<a href='#' class='index-img-open' data-img='{{img}}' data-author='{{author}}' data-desc='{{description}}' data-title='{{title}}'><img src='{{ thumb }}' title='{{ title  }}' class='index-image-item' data-img-href={{img}}></a>",
+		imageDetailsModalTemplate = "<div class='image-popup'></div>"
 
 	$document.ready(function(){
 		init();
@@ -29,6 +31,12 @@
 	};
 
 	function main(){
+
+		$indexImageGrid.on("click", ".index-img-open", function(e){
+			e.preventDefault();
+			imageModalDisplay($(this));
+		});
+
 		$window.scroll(function(){
 			if($window.scrollTop() + $window.height() == $document.height()){
 				if (!bottom){
@@ -36,10 +44,18 @@
 					getImages(page, appendIndexImages);
 				}
 			}
-		})
+		});
 		images_shown = images_per_page;
 		getImages(1, appendIndexImages);
 	};
+
+	function imageModalDisplay(el){
+		data = new Object();
+		for(var i = 0; i < modalFields.length; i++){
+			 data[modalFields[i]] = el.data(modalFields[i]);
+		}
+
+	}
 
 	function getImages(page, successFunc){
 		 // Get image list from the server

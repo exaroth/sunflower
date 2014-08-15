@@ -86,7 +86,8 @@ class Image(TimeStampMixin):
             description = self.description or None,
             author = self.author.username,
             img = self.img.url,
-            thumb = self.thumb.url
+            thumb = self.thumb.url,
+            date = self.date_added.strftime("%c")
         )
 
     class QuerySet(QuerySet):

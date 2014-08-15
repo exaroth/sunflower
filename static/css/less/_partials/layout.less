@@ -14,3 +14,57 @@
 textarea {
 	resize: none;
 }
+
+.md-overlay {
+	position: fixed;
+	z-index: 1999;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255,255,255,.7);
+	top: 0;
+	left: 0;
+	// opacity: 0;
+	// visibility: hidden
+}
+
+.md-show ~ .md-overlay {
+	opacity: 1;
+	visibility: visible;
+}
+
+.md-modal {
+	position: fixed;
+	top: 50%;
+	left: 10%;
+	.translateX(-50%);
+	.translateY(-50%);
+	width: 80%;
+	min-width: 600px;
+	height: auto;
+	z-index: 2000;
+	background-color: #FFF;
+	border: 1px solid rgba(125,125, 125, .2);
+	padding: 50px 0;
+}
+.md-modal-image{
+	position: relative;
+	width: 60%;
+	float: left;
+	img {
+		max-width: 80%;
+		position: relative;
+		left: 50%;
+		.translateX(-50%);
+}
+}
+
+.md-modal-desc {
+	 margin-top: 40px;
+	 padding: 0 40px;
+	 .md-modal-title{
+		  margin-bottom: 20px;
+}
+h6 {
+	 margin-bottom: 10px;
+}
+}
