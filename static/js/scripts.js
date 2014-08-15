@@ -18,7 +18,7 @@
 		images_shown
 
 	// Templates
-	var imageItemTemplate = "<a href='#' class='index-img-open' data-img='{{img}}' data-author='{{author}}' data-desc='{{description}}' data-title='{{title}}'><img src='{{ thumb }}' title='{{ title  }}' class='index-image-item' data-img-href={{img}}></a>",
+	var imageItemTemplate = "<a href='#' class='index-img-open' data-img='{{img}}' data-author='{{author}}' data-description='{{description}}' data-title='{{title}}'><img src='{{ thumb }}' title='{{ title  }}' class='index-image-item' data-img-href={{img}}></a>",
 		imageDetailModalTemplate='<a href="#" class="md-modal-close">&times;</a> <div class="md-modal-image "><img src="{{img}}" alt="{{title}}" /> </div><div class="md-modal-desc"><h3 class="md-modal-title">{{title}}</h3> <h6>Uploaded by: {{author}}</h6> <p>{{description}}</p> </div>'
 
 	$document.ready(function(){
@@ -39,6 +39,12 @@
 			imageModalDisplay($(this));
 		});
 
+		$document.on("click", ".md-modal-close", function(e){
+			e.preventDefault();
+			closeModalWindow();
+		});
+
+
 		$window.scroll(function(){
 			if($window.scrollTop() + $window.height() == $document.height()){
 				if (!bottom){
@@ -57,10 +63,17 @@
 		for(var i = 0; i < modalFields.length; i++){
 			 data[modalFields[i]] = el.data(modalFields[i]);
 		};
+		console.log(data);
 
 		var template = Mustache.render(imageDetailModalTemplate, data);
 		$imageModal.append(template);
 		$imageModal.addClass("md-show");
+		$body.addClass("modal-open");
+	}
+
+	function closeModalWindow(){
+		 $body.removeClass("modal-open");
+		 $imageModal.removeClass("md-show").empty();
 	}
 
 	function getImages(page, successFunc){
@@ -91,8 +104,6 @@
 				item.innerHTML = el;
 				$(item).fadeIn("fast");
 			}
-		 
 	}
-
 
 }());
