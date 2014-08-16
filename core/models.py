@@ -31,7 +31,6 @@ register.generator("core:image:image_thumbnail", ImageThumbnail)
 
 class UserProfile(models.Model):
 
-
     user = models.OneToOneField(User, related_name="profile")
     homepage = models.TextField(blank=True)
     avatar = ProcessedImageField(upload_to="avatars",

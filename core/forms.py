@@ -7,6 +7,7 @@ from django.core.validators import URLValidator
 
 from .models import Image, UserProfile, Category
 from .helpers import username_valid
+from .widgets import AdvancedFileInput
 
 
 class ImageForm(forms.ModelForm):
@@ -42,7 +43,8 @@ class UserProfileForm(forms.ModelForm):
             "homepage": forms.TextInput({
                 "class": "width-100",
                 "placeholder": "http://..."
-            })
+            }),
+            "avatar": AdvancedFileInput()
         }
 
 

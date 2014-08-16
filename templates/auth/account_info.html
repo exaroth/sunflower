@@ -19,12 +19,12 @@
 				{% csrf_token %}
 				{{ additional_info.errors }}
 				<label for="avatar">
-					Portrait
 					{% if additional_info.avatar.url %}
 					<img src="{{ additional_info.avatar.url }}" alt="Your avatar"  />
 					{{ additional_info.avatar.url }}
 					{% endif %}
 					{{ additional_info.avatar }}
+					{{ additional_info.avatarr }}
 				</label>
 
 				<label for="homepage">
