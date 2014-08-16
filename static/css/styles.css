@@ -51,6 +51,57 @@ textarea {
   height: 100%;
   width: 100%;
   z-index: 999;
+  overflow: hidden;
+  -webkit-transition: all 0.35s ease-in-out;
+  -moz-transition: all 0.35s ease-in-out;
+  -o-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+.index-img-open img:hover {
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  transform: scale(1.2);
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.image-container {
+  position: relative;
+}
+.image-container:hover .image-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+.image-overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: 0;
+  opacity: 0;
+  -webkit-transition: opacity 0.2s ease-in;
+  -moz-transition: opacity 0.2s ease-in;
+  -o-transition: opacity 0.2s ease-in;
+  transition: opacity 0.2s ease-in;
+}
+.image-overlay span {
+  color: #FFF;
+  text-align: center;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+  line-height: 100%;
+  display: block;
 }
 .image-container {
   display: none;
@@ -195,27 +246,9 @@ body.modal-open {
   background-color: #59BDFC;
   color: white;
 }
-#image-detail-wrapper {
-  margin-top: 6em !important;
-}
-.image-detail-img-container {
-  position: relative;
-}
-.image-detail-img-container img {
-  max-width: 400px;
-  max-height: 400px;
-  padding: 20px;
-  border: 1px solid #cccccc;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -moz-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  -o-transform: translateX(-50%);
-  transform: translateX(-50%);
-  position: relative;
-}
 #create-account-form,
-#login-form {
+#login-form,
+#image-upload-form {
   top: 50%;
   -webkit-transform: translateY(50%);
   -moz-transform: translateY(50%);
@@ -226,8 +259,10 @@ body.modal-open {
 }
 #create-account-form a,
 #login-form a,
+#image-upload-form a,
 #create-account-form button,
-#login-form button {
+#login-form button,
+#image-upload-form button {
   float: left;
   margin-right: 10px;
 }
@@ -273,4 +308,23 @@ body.modal-open {
 .cool-btn-blue:hover {
   background-color: #59BDFC;
   color: white;
+}
+#image-detail-wrapper {
+  margin-top: 6em !important;
+}
+.image-detail-img-container {
+  position: relative;
+}
+.image-detail-img-container img {
+  max-width: 400px;
+  max-height: 400px;
+  padding: 20px;
+  border: 1px solid #cccccc;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+  position: relative;
 }
