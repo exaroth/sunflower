@@ -13,6 +13,7 @@
 	<form action="" method="post" enctype="multipart/form-data" class="forms">
 		{% csrf_token %}
 		<h2>Create account</h2>
+		<br />
 		<label for="username">
 			Username <span class="req">*</span>
 			{% if form.username.errors %}
@@ -46,8 +47,8 @@
 			{{ form.password2 }}
 		</label>
 
-		<button type="submit" class="btn btn-blue">Submit</button>
-		<input type="button" value="Cancel" class="btn btn-red" onClick="javascript:history.go(-1)"/>
+		<button type="submit" class="cool-btn cool-btn-blue btn">Submit</button>
+		<input type="button" value="Cancel" class="cool-btn btn" onClick="javascript:history.go(-1)"/>
 	</form>
 
 </div>

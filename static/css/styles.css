@@ -136,7 +136,7 @@ body.modal-open {
   padding: 0 40px;
 }
 .md-modal-desc .md-modal-title {
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 .md-modal-desc h6 {
   margin-bottom: 10px;
@@ -190,6 +190,11 @@ body.modal-open {
   background-image: -o-linear-gradient(#59bdfc, #37a9f2);
   background-image: linear-gradient(#59bdfc, #37a9f2);
 }
+.cool-button-blue:hover,
+.cool-butti:hover:hover {
+  background-color: #59BDFC;
+  color: white;
+}
 #image-detail-wrapper {
   margin-top: 6em !important;
 }
@@ -208,4 +213,64 @@ body.modal-open {
   -o-transform: translateX(-50%);
   transform: translateX(-50%);
   position: relative;
+}
+#create-account-form,
+#login-form {
+  top: 50%;
+  -webkit-transform: translateY(50%);
+  -moz-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  -o-transform: translateY(50%);
+  transform: translateY(50%);
+  position: relative;
+}
+#create-account-form a,
+#login-form a,
+#create-account-form button,
+#login-form button {
+  float: left;
+  margin-right: 10px;
+}
+#login-form button {
+  width: 100%;
+}
+.cool-btn {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  padding: 0 21px;
+  height: 39px;
+  line-height: 37px;
+  -webkit-border-radius: 3px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 3px;
+  -moz-background-clip: padding;
+  border-radius: 3px;
+  background-clip: padding-box;
+  outline: medium none;
+  text-decoration: none;
+  -webkit-transition: color 0.2s ease-in;
+  -moz-transition: color 0.2s ease-in;
+  -o-transition: color 0.2s ease-in;
+  transition: color 0.2s ease-in;
+}
+.cool-btn:hover,
+.cool-btn:active {
+  border: 1px solid #cccccc;
+  background-color: #e6e6e6;
+}
+.cool-btn-blue {
+  border: 1px solid #1F98E5;
+  color: #FFF;
+  background-color: #37A9F2;
+  background-image: 8121991;
+  background-image: -webkit-linear-gradient(#59bdfc, #37a9f2);
+  background-image: -moz-linear-gradient(#59bdfc, #37a9f2);
+  background-image: -o-linear-gradient(#59bdfc, #37a9f2);
+  background-image: linear-gradient(#59bdfc, #37a9f2);
+}
+.cool-btn-blue:hover {
+  background-color: #59BDFC;
+  color: white;
 }
