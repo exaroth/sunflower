@@ -11,8 +11,6 @@
 <div id="account-wrapper" class="unit-80 unit-centered">
 	<a href="{% url 'index' %}"> <h1 class="title-link">Sunflower</h1> </a>
 	<div id="account-wrapper-inner" class="units-row">
-
-
 		<h2>Hello {{ user.username }}</h2>
 		{% if additional_info %}
 		<div id="account-settings-panel" class="unit-60 well unit-centered">
@@ -44,7 +42,11 @@
 		<div id="account-info-image-list" class="unit-90 unit-centered">
 			<ul id="account-info-image-wrapper" class="blocks-5">
 				{% for image in images %}
-				<li> <img src="{{ image.thumb.url }}" alt="{{ image.title }}" /> </li>
+				<li>
+				<a href="{% url 'image_detail' pk=image.pk  %}">
+					<img src="{{ image.thumb.url }}" alt="{{ image.title }}" />
+				</a>
+				</li>
 				{% endfor %}
 			</ul>
 
