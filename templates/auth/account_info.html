@@ -11,9 +11,10 @@
 <div id="account-wrapper" class="unit-80 unit-centered">
 	<a href="{% url 'index' %}"> <h1 class="title-link">Sunflower</h1> </a>
 	<div id="account-wrapper-inner" class="units-row">
-		<h2>Hello {{ user.username }}</h2>
 		{% if additional_info %}
-		<div id="account-settings-panel" class="unit-60 well unit-centered">
+		<div id="account-settings-panel" class="unit-40 ">
+			<h2>Hello {{ user.username }}</h2>
+			<br />
 			<form class="forms" action="" method="post" enctype="multipart/form-data">
 				{% csrf_token %}
 				{{ additional_info.errors }}
@@ -30,7 +31,7 @@
 					Homepage
 					{{ additional_info.homepage }}
 				</label>
-				<button type="submit">Submit</button>
+				<button type="submit" class="cool-btn cool-btn-blue">Submit</button>
 			</form>
 		</div>
 		{% endif %}
@@ -38,13 +39,13 @@
 		{% if not images %}
 		<p>No images added yet</p>
 		{% else %}
-		<h2>Your images</h2>
-		<div id="account-info-image-list" class="unit-90 unit-centered">
+		<div id="account-info-image-list" class="unit-50 unit-centered">
 			<ul id="account-info-image-wrapper" class="blocks-5">
 				{% for image in images %}
 				<li>
 				<a href="{% url 'image_detail' pk=image.pk  %}">
 					<img src="{{ image.thumb.url }}" alt="{{ image.title }}" />
+					<div class="account-image-overlay"></div>
 				</a>
 				</li>
 				{% endfor %}

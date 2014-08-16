@@ -5,15 +5,45 @@
 }
 
 #account-settings-panel {
-	background-color: @black-10;
-	border: 1px solid @black-20;
-	opacity: .6;
-	padding: 10px;
-	.delicate-shadow();
-	margin-bottom: 2em;
+	padding: 30px;
+	margin: 0 2em 2em 0;
+	border-right: 1px solid rgba(0,0,0,0.2);
+
 
 }
 #account-info-image-list {
+	@media screen and (max-width: @sm){
+		padding: 60px;
+	}
+	li {
+		width: auto !important;
+		margin-right: 20px;
+}
+	a {
+		position: relative;
+		display: block;
+}
+a:hover .account-image-overlay {
+	opacity: 1;
+}
+	img {
+		max-width: 80px;
+		max-height: 80px;
+		padding: none;
+		margin: none;
+}
+}
+.account-image-overlay {
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255,255,255,.2);
+	.transition(all, .1s, ease-in);
+	opacity: 0;
+	z-index: 999;
+	position: absolute;
+	top: 0;
+	left: 0;
+
 }
 
 .cool-button {

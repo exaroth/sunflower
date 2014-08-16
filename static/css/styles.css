@@ -42,6 +42,7 @@ textarea {
 }
 #index-wrapper {
   margin-top: 60px;
+  position: relative;
 }
 #index-image-grid[data-columns]:before {
   content: '3 .column.size-1of3';
@@ -57,16 +58,16 @@ textarea {
   -o-transition: all 0.35s ease-in-out;
   transition: all 0.35s ease-in-out;
 }
-.index-img-open img:hover {
-  -webkit-transform: scale(1.2);
-  -moz-transform: scale(1.2);
-  -ms-transform: scale(1.2);
-  -o-transform: scale(1.2);
-  transform: scale(1.2);
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
+.image-container:hover img {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  transform: scale(1.1);
+  -webkit-transition: all 0.35s ease-in-out;
+  -moz-transition: all 0.35s ease-in-out;
+  -o-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
 }
 .image-container {
   position: relative;
@@ -200,13 +201,45 @@ body.modal-open {
   margin-top: 4em;
 }
 #account-settings-panel {
-  background-color: #e6e6e6;
-  border: 1px solid #cccccc;
-  opacity: .6;
-  padding: 10px;
-  box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.1);
-  -webkit-box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2em;
+  padding: 30px;
+  margin: 0 2em 2em 0;
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+@media screen and (max-width: 750px) {
+  #account-info-image-list {
+    padding: 60px;
+  }
+}
+#account-info-image-list li {
+  width: auto !important;
+  margin-right: 20px;
+}
+#account-info-image-list a {
+  position: relative;
+  display: block;
+}
+#account-info-image-list a:hover .account-image-overlay {
+  opacity: 1;
+}
+#account-info-image-list img {
+  max-width: 80px;
+  max-height: 80px;
+  padding: none;
+  margin: none;
+}
+.account-image-overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  -webkit-transition: all 0.1s ease-in;
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+  opacity: 0;
+  z-index: 999;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .cool-button {
   display: block;

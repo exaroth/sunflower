@@ -14,19 +14,15 @@
 <!-- Index page  -->
 <div id="index-wrapper">
 
-	{% if images %}
-
 	<div id="index-image-grid" data-columns>
+		{% if not images %}
+		<h3>No pictures uploaded yet</h3>
+		{% endif %}
 	</div>
-	{% else %}
-	<a href="#">#</a>
-	<h3>No pictures uploaded yet</h3>
 
-{% endif %}
-
-<div class="md-modal" tabindex="-1">
-</div>
-<div class="md-overlay"></div>
+	<div class="md-modal" tabindex="-1">
+	</div>
+	<div class="md-overlay"></div>
 
 </div>
 
