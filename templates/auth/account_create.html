@@ -15,7 +15,6 @@
 		<h2>Create account</h2>
 		<label for="username">
 			Username <span class="req">*</span>
-			<span class="forms-desc">Enter your username</span>
 			{% if form.username.errors %}
 			<br />
 			{% for error in form.username.errors %}
@@ -27,7 +26,6 @@
 
 		<label for="password">
 			Password <span class="req">*</span>
-			<span class="forms-desc">Enter password</span>
 			{% if form.password.errors %}
 			<br />
 			{% for error in form.password.errors %}
