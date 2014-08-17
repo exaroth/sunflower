@@ -8,6 +8,8 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.views.decorators.cache import cache_page, never_cache
+from django.core.cache import get_cache
 from django.core import serializers
 from django.utils import simplejson
 from django.views.generic.detail import SingleObjectMixin
@@ -34,6 +36,10 @@ class IndexView(ListView):
     paginate_by = 10
     context_object_name = "images"
     template_name="index.html"
+    
+    @method_decorator(cache_page(60 * 15))
+    def dispatch(self, *args, **kwargs):
+        return super(IndexView, self).dispatch(*args, **kwargs)
 
     def get_context_data(self):
 
@@ -52,6 +58,10 @@ class CreateAccountView(CreateView):
     form_class = UserCreateForm
     template_name = "auth/account_create.html"
     success_url = "/"
+
+    @method_decorator(never_cache)
+    def dispatch(self, *args, **kwargs):
+        return super(CreateAccountView, self).dispatch(*args, **kwargs)
 
     def get(self, request, *args, **kwargs):
 
@@ -146,6 +156,10 @@ class LoginScreenView(FormView):
 
     form_class = CustomLoginForm
     template_name = "auth/login_screen.html"
+    
+    @method_decorator(never_cache)
+    def dispatch(self, *args, **kwargs):
+        return super(LoginScreenView, self).dispatch(*args, **kwargs)
 
     def form_valid(self, form):
 

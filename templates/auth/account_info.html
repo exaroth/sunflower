@@ -18,7 +18,8 @@
 			<form class="forms" action="" method="post" enctype="multipart/form-data">
 				{% csrf_token %}
 				{{ additional_info.errors }}
-				<label for="avatar">
+				<label for="avatar" id="account-avatar">
+					Your portrait </br>
 					{% if additional_info.avatar.url %}
 					<img src="{{ additional_info.avatar.url }}" alt="Your avatar"  />
 					{{ additional_info.avatar.url }}
@@ -26,6 +27,7 @@
 					{{ additional_info.avatar }}
 					{{ additional_info.avatarr }}
 				</label>
+				<hr align="left" width="300px"/>
 
 				<label for="homepage">
 					Homepage

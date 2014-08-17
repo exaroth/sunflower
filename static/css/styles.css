@@ -227,6 +227,9 @@ body.modal-open {
   padding: none;
   margin: none;
 }
+#account-avatar img {
+  max-width: 100px;
+}
 .account-image-overlay {
   width: 100%;
   height: 100%;

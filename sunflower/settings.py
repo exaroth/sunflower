@@ -103,3 +103,10 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.realpath(os.path.join(ROOT_DIR, "media"))
 LOGIN_URL = "/login/"
 LOGIN_REDIRECT_URL = "/login"
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+        "LOCATION": "127.0.0.1:11211"
+    }
+}
