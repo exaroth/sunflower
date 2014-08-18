@@ -14,7 +14,12 @@ Upload image
 	<br />
 <form action="" method="post" enctype="multipart/form-data" class="forms">
 	{% csrf_token %}
-	
+	{% for non_field_error in form.non_field_errors %}
+	<span class="error">{{ non_field_error }}</span>
+	{% endfor %}
+	{% for error in form.img.errors %}
+	<span class="error">{{ error }}</span>
+	{% endfor %}
 	<label for="title">
 		Title of the image <span class="req">*</span>
 		{% if form.title.errors %}
