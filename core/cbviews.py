@@ -30,22 +30,16 @@ from .forms import (
 ) 
 
 
-class IndexView(ListView):
+class IndexView(TemplateView):
 
-    queryset = Image.objects.all()
     paginate_by = 10
     context_object_name = "images"
     template_name="index.html"
     
-    @method_decorator(cache_page(60 * 15))
+    # @method_decorator(cache_page(60 * 15))
     def dispatch(self, *args, **kwargs):
         return super(IndexView, self).dispatch(*args, **kwargs)
 
-    def get_context_data(self):
-
-        context = super(IndexView, self).get_context_data()
-
-        return context
 
 class RedirectIndexView(RedirectView):
 
@@ -131,7 +125,6 @@ class AccountInfoView(DetailView):
         
         new_profile_data = form.save(commit=False)
         new_profile_data.user = self.request.user
-        print new_profile_data.avatar
         new_profile_data.save()
         return HttpResponseRedirect(reverse_lazy("account_info", kwargs={"username": self.request.user.username }))
 
@@ -243,7 +236,6 @@ class ImageDeleteView(DeleteView):
     def get_object(self, queryset=None):
 
         obj = super(ImageDeleteView, self).get_object()
-        print obj.author == self.request.user
         if obj.author != self.request.user:
             raise Http404()
         return obj
@@ -262,7 +254,6 @@ class ImageDetailView(DetailView, FormMixin):
         if img.author != self.request.user:
             return HttpResponseForbidden()
         return super(ImageDetailView, self).dispatch(*args, **kwargs)
-
 
     def post(self, request, *args, **kwargs):
 

@@ -97,6 +97,9 @@
 			return
 		}).error(function(){
 			 bottom = true;
+			 if(page === 1){
+				$indexImageGrid.append("<h3>No images uploaded yet</h3>");
+			 }
 			 return
 		})
 

@@ -14,14 +14,30 @@
 	
 <form action="" method="post" class="forms">
 	{% csrf_token %}
+	{% for non_field_error in form.non_field_errors %}
+	<span class="error">{{ non_field_error }}</span>
+	{% endfor %}
+
 	<label for="username">
 	Username <span class="forms-desc"> {{ form.username.help_text }} </span>
+			{% if form.username.errors %}
+			<br />
+			{% for error in form.username.errors %}
+			<span class="error">{{ error }}</span>
+			{% endfor %}
+			{% endif %}
 	{{ form.username }}
 	</label>
 
 	<label for="password">
 		Pasword
 		<span class="forms-desc">{{ form.password.help_text }}</span>
+			{% if form.password.errors %}
+			<br />
+			{% for error in form.password.errors %}
+			<span class="error">{{ error }}</span>
+			{% endfor %}
+			{% endif %}
 	{{ form.password }}
    	</label>
 	<p>

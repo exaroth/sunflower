@@ -11,8 +11,11 @@
 <div id="create-account-form" class="unit-25 unit-centered">
 
 	<form action="" method="post" enctype="multipart/form-data" class="forms">
-		{% csrf_token %}
 		<h2>Create account</h2>
+		{% csrf_token %}
+		{% for non_field_error in form.non_field_errors %}
+		<span class="error">{{ non_field_error }}</span>
+		{% endfor %}
 		<br />
 		<label for="username">
 			Username <span class="req">*</span>
