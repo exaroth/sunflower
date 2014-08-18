@@ -365,16 +365,47 @@ body.modal-open {
 .image-detail-img-container {
   position: relative;
 }
-.image-detail-img-container img {
-  max-width: 400px;
-  max-height: 400px;
-  padding: 20px;
-  border: 1px solid #cccccc;
+.image-detail-img-wrapper {
+  position: relative;
   left: 50%;
   -webkit-transform: translateX(-50%);
   -moz-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   -o-transform: translateX(-50%);
   transform: translateX(-50%);
-  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+.image-detail-img-wrapper a {
+  position: absolute;
+  z-index: 999;
+  width: 200px;
+  height: 100px;
+  bottom: -40px;
+  right: -90px;
+  display: block;
+  background-color: #ff3b30;
+  line-height: 100%;
+  font-size: 3em;
+  text-decoration: none;
+  text-align: center;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  color: white;
+  -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
+.image-detail-img-wrapper a:hover {
+  background-color: red;
+}
+.image-detail-img-wrapper img {
+  max-width: 400px;
+  max-height: 400px;
+  padding: 20px;
+  border: 1px solid #cccccc;
 }

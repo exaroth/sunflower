@@ -10,7 +10,10 @@
 	<div class="units-row">
 
 		<div class="image-detail-img-container unit-60">
+			<div class="image-detail-img-wrapper">
 				<img src="{{ image.img.url }}" alt="{{ image.title }}">
+				<a href="{% url 'image_delete' pk=image.pk %}" class="" title="Delete" >+</a>
+			</div>
 
 		</div>
 		<div class="image-detail-img-description unit-40">
@@ -19,8 +22,7 @@
 			<form class="img-description-form forms" action="" method="post">
 				{% csrf_token %}
 				{{ form.as_p }}
-				<button type="submit">Save</button>
-				<a href="{% url 'image_delete' pk=image.pk %}">Delete</a>
+				<button type="submit" class="cool-btn btn">Save</button>
 			</form>
 
 		</div>

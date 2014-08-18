@@ -7,16 +7,41 @@
 
 .image-detail-img-container {
 	position: relative;
+	
 
+}
+
+.image-detail-img-wrapper {
+	 position: relative;
+	 left: 50%;
+	.translateX(-50%);
+	display: inline-block;
+	overflow: hidden;
+	 a {
+		 position: absolute;
+		 z-index: 999;
+		 width: 200px;
+		 height: 100px;
+		 bottom: -40px;
+		 right: -90px;
+		 display: block;
+		 background-color: @apple-red;
+		 line-height: 100%;
+		 font-size: 3em;
+		 text-decoration: none;
+		 text-align: center;
+		 .rotate(-45deg);
+		 color: white;
+		 .transition(all, .2s, ease-in);
+		 &:hover {
+			 background-color: red;
+}
+}
 	img {
 		max-width: 400px;
 		max-height: 400px;
 		padding: 20px;
 		border: 1px solid @black-20;
-		left: 50%;
-		.translateX(-50%);
-		position: relative;
 }
-
 
 }
