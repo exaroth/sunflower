@@ -186,6 +186,7 @@ body.modal-open {
   position: relative;
   width: 60%;
   float: left;
+  padding-bottom: 40px;
 }
 .md-modal-image img {
   max-width: 80%;
@@ -390,6 +391,7 @@ body.modal-open {
   font-size: 3em;
   text-decoration: none;
   text-align: center;
+  font-weight: bold;
   -webkit-transform: rotate(-45deg);
   -moz-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);

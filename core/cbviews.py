@@ -29,6 +29,8 @@ from .forms import (
     CustomLoginForm, ImageDescriptionForm
 ) 
 
+cache = get_cache("default")
+
 
 class IndexView(TemplateView):
 
@@ -198,6 +200,7 @@ class ImageUploadView(CreateView):
         new_image = form.save(commit=False)
         new_image.author = self.request.user
         new_image.save()
+        cache.clear()
         return HttpResponseRedirect(reverse_lazy("image_detail", kwargs={"pk": new_image.pk}))
 
     def get(self, request, *args, **kwargs):
@@ -322,7 +325,14 @@ class JSONImageView(JSONResponseView, View):
         pagination = self.get_pagination()
         object_list = self.get_object()
         item_count = object_list.count()
-        page = object_list[pagination[0]: pagination[1]].queryset_to_list()
+        cache_name = "index_image_item_{0}".format(self.kwargs["page"])
+        index_page = cache.get(cache_name)
+        if index_page:
+            page = index_page
+        else:
+            page = object_list[pagination[0]: pagination[1]].queryset_to_list()
+            cache.set(cache_name, page, 20)
+            print cache.get(cache_name)
         if not page:
             raise Http404()
         result = dict()
