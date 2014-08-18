@@ -65,12 +65,22 @@
 	.transition(opacity, .2s, ease-in);
 	span {
 		color: #FFF;
+		opacity: .9;
 		text-align: center;
 		position: relative;
 		top: 50%;
 		.translateY(-50%);
-		line-height: 100%;
+		line-height: 6px;
+		border: 1px solid #fff;
 		display: block;
+		width: 60px;
+		left: 50%;
+		padding: 10px;
+		height: 30px;
+		.translateX(-50%);
+		&:hover {
+			 opacity: 1;
+}
 }
 
 }

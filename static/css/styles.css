@@ -93,6 +93,7 @@ textarea {
 }
 .image-overlay span {
   color: #FFF;
+  opacity: .9;
   text-align: center;
   position: relative;
   top: 50%;
@@ -101,8 +102,21 @@ textarea {
   -ms-transform: translateY(-50%);
   -o-transform: translateY(-50%);
   transform: translateY(-50%);
-  line-height: 100%;
+  line-height: 6px;
+  border: 1px solid #fff;
   display: block;
+  width: 60px;
+  left: 50%;
+  padding: 10px;
+  height: 30px;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+.image-overlay span:hover {
+  opacity: 1;
 }
 .image-container {
   display: none;

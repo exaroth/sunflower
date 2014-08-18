@@ -18,7 +18,7 @@
 		images_shown
 
 	// Templates
-	var imageItemTemplate = "<a href='#' class='index-img-open' data-img='{{img}}' data-author='{{author}}' data-description='{{description}}' data-title='{{title}}'><img src='{{ thumb }}' title='{{ title  }}' class='index-image-item' data-img-href={{img}}><div class='image-overlay'><span>X</span></div></a>",
+	var imageItemTemplate = "<a href='#' class='index-img-open' data-img='{{img}}' data-author='{{author}}' data-description='{{description}}' data-title='{{title}}'><img src='{{ thumb }}' title='{{ title  }}' class='index-image-item' data-img-href={{img}}><div class='image-overlay'><span>view</span></div></a>",
 		imageDetailModalTemplate='<a href="#" class="md-modal-close">&times;</a> <div class="md-modal-image "><img src="{{img}}" alt="{{title}}" /> </div><div class="md-modal-desc"><h3 class="md-modal-title">{{title}}</h3><h6>Uploaded by {{author}}</h6> <p>{{description}}</p> </div>'
 
 	$document.ready(function(){
