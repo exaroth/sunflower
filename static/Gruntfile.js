@@ -8,53 +8,56 @@ module.exports = function(grunt) {
 
 		concat: {
 
+			indexjs:{
+				options: {
+					separator: ";",
+				},
+				src: [
+					"bower_components/salvattore/dist/salvattore.js",
+					"js/index.js"
+				],
+				dest: "js/index.concat.js"
+			},
+
 			js: {
 				options: {
 					separator: ";",
 				},
 				src: [
-					// Files to be concatenated
+					"bower_components/mustache/mustache.js",
+					"js/main.js"
 				],
 					//file output
-				dest: "src/js/scripts.js"
+				dest: "js/main.concat.js"
 			},
 			css: {
 				src: [
-				// "src/css/main.css"
+				"css/kube.min.css",
+				"css/fontello.css",
+				"css/styles.css"
 				],
-				// dest: "css/styles.css"
+				dest: "css/styles.concat.css"
 			}
 
 		},
 
 		cssmin: {
 			minify: {
-				// expand: true,
-				// cwd: "src/css",
-				// src: ["styles.css"],
-				// dest: "src/css",
-				// ext: ".min.css"
+				expand: true,
+				cwd: "css",
+				src: ["styles.concat.css"],
+				dest: "css",
+				ext: ".min.css"
 			}
 		},
 		uglify: {
 			scripts: {
 				files: {
-					// "src/js/scripts.min.js": ["src/js/scripts.js"]
+					"js/main.min.js": ["js/main.concat.js"],
+					"js/index.min.js": ["js/index.concat.js"]
 
 				}
 			}
-		},
-
-		copy: {
-			main: {
-				files: [
-				// { expand: true, cwd: "src/img/", src: "*", dest: "build/img" },
-				// { expand: true, cwd: "src/font/", src: "*", dest: "build/font" },
-				// { expand: true, cwd: "src/css/", src: "styles.min.css", dest: "build/css/" },
-				// { expand: true, cwd: "src/js/", src: "scripts.min.js", dest: "build/js/" },
-				]
-			}
-
 		},
 
 		watch: {
@@ -96,8 +99,7 @@ module.exports = function(grunt) {
 
 
 	grunt.registerTask("default", ["watch:main"]);
-	grunt.registerTask("build", ["clean", "less:devel", "concat:css", "concat:js", "uglify", "cssmin", "copy"]);
-	grunt.registerTask("bootstrap_compile", ["less:bootstrap"]);
+	grunt.registerTask("build", ["less:devel", "concat:css", "concat:indexjs", "concat:js", "uglify", "cssmin" ]);
 
 }
 

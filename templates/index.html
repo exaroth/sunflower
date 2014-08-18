@@ -28,9 +28,13 @@
 
 {% block js %}
 {{ block.super }}
-
+{% if DEBUG %}
 	<script src="{% static 'bower_components/salvattore/dist/salvattore.js' %}"></script>
 	<script src="{% static 'js/index.js' %}"></script>
+{% else %}
+	<script src="{% static 'js/index.min.js' %}"></script>
+{% endif %}
+
 
 {% endblock %}
 
