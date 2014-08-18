@@ -39,6 +39,10 @@ class UserProfile(models.Model):
                                  format="JPEG",
                                  options={"quality": 80})
 
+    def delete(self, *args, **kwargs):
+        self.avarar.delete(False)
+        super(UserProfile, self).delete(*args, **kwargs)
+
     def __unicode__(self):
         return self.user.username
 
@@ -88,6 +92,10 @@ class Image(TimeStampMixin):
             thumb = self.thumb.url,
             date = self.date_added.strftime("%c")
         )
+
+    def delete(self, *args, **kwargs):
+        self.img.delete(False)
+        super(Image, self).delete(*args, **kwargs)
 
     class QuerySet(QuerySet):
 
