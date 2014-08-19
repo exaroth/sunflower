@@ -9,13 +9,12 @@
 
 {% block content %}
 
-<h2>Delete image</h2>
 
-<form action="" method="post">
+<form action="" method="post" class="unit-20 unit-centered">
 	{% csrf_token %}
-	<p>Do you really want to delete image {{ image.title }}? </p>
-	<button type="submit">Yes</button>
-	<a href="{% url 'index' %}">No</a>
+	<p>Do you really want to delete image <strong>{{ image.title }}</strong>? </p>
+	<button type="submit" class="btn">Yes</button>
+	<button onClick="javascript:history.go(-1)" class="btn">No</button>
 </form>
 
 {% endblock %}

@@ -65,7 +65,7 @@ module.exports = function(grunt) {
 			scripts: {
 				files: {
 					"js/main.min.js": ["js/main.concat.js"],
-					"js/index.min.js": ["js/index.concat.js"]
+					"js/index.min.js": ["js/index.concat.js"],
 					"js/account.min.js": ["js/account.concat.js"]
 
 				}
