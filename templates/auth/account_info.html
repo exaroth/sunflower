@@ -33,29 +33,14 @@
 					Homepage
 					{{ additional_info.homepage }}
 				</label>
-				<input type="hidden" name="user_hidden" value="{{ user.pk }}">
+				<input type="hidden" id="user_hidden" name="user_hidden" value="{{ user.pk }}">
 				<button type="submit" class="cool-btn cool-btn-blue">Submit</button>
 			</form>
 		</div>
 		{% endif %}
 
-		{% if not images %}
-		<p>No images added yet</p>
-		{% else %}
-		<div id="account-info-image-list" class="unit-50 unit-centered">
-			<ul id="account-info-image-wrapper" class="blocks-5">
-				{% for image in images %}
-				<li>
-				<a href="{% url 'image_detail' pk=image.pk  %}">
-					<img src="{{ image.thumb.url }}" alt="{{ image.title }}" />
-					<div class="account-image-overlay"></div>
-				</a>
-				</li>
-				{% endfor %}
-			</ul>
-
+		<div id="account-info-image-list" class="unit-50 " data-columns>
 		</div>
-		{% endif %}
 
 	</div>
 
@@ -71,6 +56,8 @@
 	<script src="{% static 'bower_components/salvattore/dist/salvattore.js' %}"></script>
 	<script src="{% static 'js/account.js' %}"></script>
 
+{% else %}
+<script src="{% static 'js/account.min.js' %}"></script>
 {% endif %}
 
 

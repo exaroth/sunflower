@@ -22,6 +22,12 @@
 textarea {
   resize: none;
 }
+.size-1of4 {
+  width: 25%;
+}
+.column {
+  float: left;
+}
 .nav-item {
   width: 100%;
   color: red;
@@ -224,14 +230,13 @@ body.modal-open {
   margin: 0 2em 2em 0;
   border-right: 1px solid rgba(0, 0, 0, 0.2);
 }
+#account-info-image-list[data-columns]::before {
+  content: '4 .column.size-1of4';
+}
 @media screen and (max-width: 750px) {
   #account-info-image-list {
     padding: 60px;
   }
-}
-#account-info-image-list li {
-  width: auto !important;
-  margin-right: 20px;
 }
 #account-info-image-list a {
   position: relative;
@@ -241,13 +246,14 @@ body.modal-open {
   opacity: 1;
 }
 #account-info-image-list img {
-  max-width: 80px;
-  max-height: 80px;
   padding: none;
   margin: none;
 }
 #account-avatar img {
   max-width: 100px;
+}
+.account-image-wrapper {
+  margin: 10px 10px 10px 0 ;
 }
 .account-image-overlay {
   width: 100%;

@@ -8,6 +8,17 @@ module.exports = function(grunt) {
 
 		concat: {
 
+			accountjs: {
+				options: {
+					separator: ";"
+				},
+				src: [
+					"bower_components/salvattore/dist/salvattore.js",
+					"js/index.js"
+				],
+				dest: "js/account.concat.js"
+			},
+
 			indexjs:{
 				options: {
 					separator: ";",
@@ -55,6 +66,7 @@ module.exports = function(grunt) {
 				files: {
 					"js/main.min.js": ["js/main.concat.js"],
 					"js/index.min.js": ["js/index.concat.js"]
+					"js/account.min.js": ["js/account.concat.js"]
 
 				}
 			}
@@ -99,7 +111,7 @@ module.exports = function(grunt) {
 
 
 	grunt.registerTask("default", ["watch:main"]);
-	grunt.registerTask("build", ["less:devel", "concat:css", "concat:indexjs", "concat:js", "uglify", "cssmin" ]);
+	grunt.registerTask("build", ["less:devel", "concat:css", "concat:indexjs", "concat:accountjs", "concat:js", "uglify", "cssmin" ]);
 
 }
 
