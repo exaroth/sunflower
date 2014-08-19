@@ -364,7 +364,15 @@ class JSONAccountImageView(JSONResponseView, View):
             user = self.model.objects.get(pk=self.kwargs["pk"])
         except:
             raise Http404
-        object_list = user.images.all()
+        cached_data_name = "account_images_{0}".format(self.kwargs["pk"])
+        cached_images = cache.get(cached_data_name)
+        if cached_images:
+            object_list = cached_images
+            print object_list
+        else:
+            object_list = user.images.all()
+            print object_list
+            cache.set(cached_data_name, object_list, 3 * 60)
         return object_list
 
     def get_context_data(self):
