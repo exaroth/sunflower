@@ -1,4 +1,5 @@
 ﻿{% extends "base.html" %}
+{% load static %}
 
 {% block title %}
 {{ user.username }} - Account
@@ -60,10 +61,19 @@
 
 </div>
 
+{% endblock %}
 
+{% block js %}
+{{ block.super }}
 
+{% if DEBUG %}
 
+	<script src="{% static 'bower_components/salvattore/dist/salvattore.js' %}"></script>
+	<script src="{% static 'js/account.js' %}"></script>
 
+{% endif %}
 
 
 {% endblock %}
+
+
