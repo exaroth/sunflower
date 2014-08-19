@@ -82,9 +82,10 @@ class Image(TimeStampMixin):
     def get_absolute_url(self):
         return reverse("image_details", kwargs={"pk": self.pk})
 
-    def _to_dict(self):
+    def _to_dict(self, restrict_to = list()):
         # Convert item to dictionary
-        return dict(
+        fields =  dict(
+            pk = self.pk,
             title = self.title,
             description = self.description or None,
             author = self.author.username,
@@ -92,6 +93,17 @@ class Image(TimeStampMixin):
             thumb = self.thumb.url,
             date = self.date_added.strftime("%c")
         )
+        if not restrict_to:
+            return fields
+
+        else:
+            result = dict()
+            for field in fields.keys():
+                if field in restrict_to:
+                    result[field] = fields[field]
+            return result
+
+
 
     def delete(self, *args, **kwargs):
         self.img.delete(False)
@@ -99,12 +111,12 @@ class Image(TimeStampMixin):
 
     class QuerySet(QuerySet):
 
-        def queryset_to_list(self):
+        def queryset_to_list(self, *args):
             # Return list of items containing
             # dicts of items ( for json serialization )
             result = list()
             for item in self:
-                result.append(item._to_dict())
+                result.append(item._to_dict(*args))
             return result
 
     class Meta:

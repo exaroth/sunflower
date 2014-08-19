@@ -16,6 +16,9 @@
   text-align: center;
   text-decoration: none !important;
 }
+.title-link:hover h1 {
+  color: #4d4d4d;
+}
 textarea {
   resize: none;
 }

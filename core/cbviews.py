@@ -298,11 +298,10 @@ class JSONResponseView(object):
     def convert_to_json(self, data):
         return simplejson.dumps(data, indent=4)
 
-class JSONImageView(JSONResponseView, View):
+class JSONIndexImageView(JSONResponseView, View):
     
     model = Image
     max_items = 30
-    json_fields = ("img", "title")
 
     def get(self, request, *args, **kwargs):
         return self.render_to_json_response(self.get_context_data())
@@ -331,8 +330,7 @@ class JSONImageView(JSONResponseView, View):
             page = index_page
         else:
             page = object_list[pagination[0]: pagination[1]].queryset_to_list()
-            cache.set(cache_name, page, 20)
-            print cache.get(cache_name)
+            cache.set(cache_name, page, 4 * 60)
         if not page:
             raise Http404()
         result = dict()
@@ -342,4 +340,29 @@ class JSONImageView(JSONResponseView, View):
 
         )
         result["data"] = page
+        return result
+
+class JSONAccountImageView(JSONResponseView, View):
+
+    model = User
+    json_fields = ("thumb", "pk")
+
+    def get(self, *args, **kwargs):
+        return self.render_to_json_response(self.get_context_data())
+
+    def get_object(self):
+
+        try:
+            user = self.model.objects.get(pk=self.kwargs["pk"])
+        except:
+            raise Http404
+        object_list = user.images.all()
+        return object_list
+
+    def get_context_data(self):
+        
+        result = dict()
+        object_list = self.get_object().queryset_to_list(self.json_fields)
+        result["data"] = object_list
+
         return result

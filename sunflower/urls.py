@@ -12,7 +12,8 @@ from core.cbviews import (IndexView,
                           ImageUploadView,
                           ImageDetailView,
                           ImageDeleteView,
-                          JSONImageView
+                          JSONIndexImageView,
+                          JSONAccountImageView,
                          )
 
 urlpatterns = patterns('',
@@ -26,7 +27,8 @@ urlpatterns = patterns('',
                        url(r"^upload/$", ImageUploadView.as_view(), name="image_upload"),
                        url(r"image/(?P<pk>\d+)$", ImageDetailView.as_view(), name="image_detail"),
                        url(r"image/delete/(?P<pk>\d+)", ImageDeleteView.as_view(), name="image_delete"),
-                       url(r"image_list/(?P<items>\d{1,2})/(?P<page>\d+)$", JSONImageView.as_view(), name="image_json_view"),
+                       url(r"image_list/(?P<items>\d{1,2})/(?P<page>\d+)$", JSONIndexImageView.as_view(), name="image_json_view"),
+                       url(r"user_image_list/(?P<pk>\d)", JSONAccountImageView.as_view(), name="account_image_json_view")
                       )
     
 
