@@ -283,6 +283,7 @@ class ImageDetailView(DetailView, FormMixin):
 
     def form_valid(self, form):
         form.save()
+        cache.clear()
         return HttpResponseRedirect(reverse_lazy("image_detail", kwargs = {"pk": self.get_object().pk}))
 
 
