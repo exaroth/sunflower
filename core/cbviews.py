@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.views.decorators.cache import cache_page, never_cache
 from django.core.cache import get_cache
+from django.conf import settings
 from django.core import serializers
 from django.utils import simplejson
 from django.views.generic.detail import SingleObjectMixin
@@ -291,12 +292,18 @@ class JSONResponseView(object):
     Implements basic methods for returning JSON response
     """
 
+    def dispatch(self, *args, **kwargs):
+        if not self.request.is_ajax() and not settings.DEBUG:
+            raise Http404
+        return super(JSONResponseView, self).dispatch(*args, **kwargs)
+
     def render_to_json_response(self, data, **context_kwargs):
         context_kwargs["content_type"] = "application/json"
         return StreamingHttpResponse(self.convert_to_json(data), **context_kwargs)
 
     def convert_to_json(self, data):
         return simplejson.dumps(data, indent=4)
+
 
 class JSONIndexImageView(JSONResponseView, View):
     
