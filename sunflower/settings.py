@@ -36,7 +36,9 @@ STATICFILES_DIRS = (
     os.path.realpath(os.path.join(ROOT_DIR, "static")),
 )
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+     "localhost",
+]
 
 
 # Application definition
