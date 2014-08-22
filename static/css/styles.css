@@ -431,3 +431,7 @@ body.modal-open {
   padding: 20px;
   border: 1px solid #cccccc;
 }
+* {
+  background: #eee !important;
+  background: rgba(0, 0, 0, 0.05) !important;
+}
