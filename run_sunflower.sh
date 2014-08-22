@@ -3,7 +3,6 @@
 APP_NAME="sunflower"
 DJANGO_DIR=/Users/konrad/Repositories/sunflower/sunflower
 SOCKET_FILE=/Users/konrad/Repositories/sunflower/sunflower/run/gunicorn.sock
-USER=konrad
 NUM_WORKERS=3
 DJANGO_SETTINGS_MODULE=sunflower.settings
 DJANGO_WSGI_MODULE=sunflower.wsgi
