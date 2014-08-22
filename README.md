@@ -3,7 +3,7 @@
 ![](sunflower_thumb.jpg)
 
 Sunflower is a simple image gallery written in Django framework. It strives to
-be easy to use and focus on presenting content in a clear and distraction free fashion.
+be easy to use and focus on presenting content in a clear and distraction-free fashion.
 
 
 ## Installation
@@ -70,7 +70,8 @@ This will start django dev server along with grunt and will compile less and ref
 This assumes you're using Nginx as a http server and Gunicorn as WSGI one.
 
 * Edit `settings.py` file change `DEBUG` to `True` and **IMPORTANT** `SECRET_KEY` value to anything you like.
-* Define database backend inside `settings.py` - see [relevant entry](https://docs.djangoproject.com/en/dev/ref/databases/) in Django documentation for details
+* Define database backend inside `settings.py` - see [relevant entry](https://docs.djangoproject.com/en/dev/ref/databases/) in Django documentation for details.
+* Go to `static/` folder and execute `grunt build` if you have made any changes to css or javascript, this will compile, concatenate and minify all the required files.
 * Edit `run_sunflower.sh` script, inside you will find following variables (starred entries should be changed):
     + `APP_NAME` - name of the application
     + *`DJANGO_DIR` - absolute path to the project
@@ -79,8 +80,8 @@ This assumes you're using Nginx as a http server and Gunicorn as WSGI one.
     + `DJANGO_SETTINGS_MODULE` - string denoting settings.py module inside the app
     + `DJANGO_WSGI_MODULE` - same as above but for wsgi module
 
-* Then configure Nginx server to use gunicorn as reverse proxy. You can find example configuration that works fairly well in [Gunicorn documentation](http://gunicorn-docs.readthedocs.org/en/latest/deploy.html)
-* Finally run memcached, execute `run_sunflower.sh` and restart Nginx with new configuration and you're set to go
+* Then configure Nginx server to use gunicorn as reverse proxy. You can find example configuration that works fairly well in [Gunicorn documentation](http://gunicorn-docs.readthedocs.org/en/latest/deploy.html).
+* Finally run memcached, execute `run_sunflower.sh` and restart Nginx with new configuration and you're set to go.
 
 ## Software used:
 
