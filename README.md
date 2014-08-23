@@ -19,7 +19,7 @@ virtualenv <project_name>
 
 * Activate it:
 ```shell
-# from withing <project_name> folder
+# from within <project_name> folder
 source bin/activate
 ```
 
@@ -52,10 +52,13 @@ memcached -d -p 11211
 
 ### Running development server
 
-* Edit `settings.py` file inside `sunflower` directory, make sure `DEBUG` is set to `True`
+* Edit `settings.py` file inside `sunflower` directory, make sure `DEBUG` is set to `True`.
 
+* Inside `/static/` directory execute `npm install && bower install` to download required Javascript libraries.
 
-* Then edit `run_dev_server.sh` file and change `DJANGO_DIR` to an absolute path to your project (the directory with `manage.py` file)
+* Configure database settings inside `settings.py` file and execute `python manage.py syncdb` to create required tables.
+
+* Then edit `run_dev_server.sh` file and change `DJANGO_DIR` to an absolute path to your project (the directory with `manage.py` file).
 
 
 * Execute `run_dev_server.sh`:
@@ -70,7 +73,9 @@ This will start django dev server along with grunt and will compile less and ref
 This assumes you're using Nginx as a http server and Gunicorn as WSGI one.
 
 * Edit `settings.py` file change `DEBUG` to `True` and **IMPORTANT** `SECRET_KEY` value to anything you like.
+* Add your hostname into `ALLOWED_HOSTS` list
 * Define database backend inside `settings.py` - see [relevant entry](https://docs.djangoproject.com/en/dev/ref/databases/) in Django documentation for details.
+* Execute `python manage.py syncdb`.
 * Go to `static/` folder and execute `grunt build` if you have made any changes to css or javascript, this will compile, concatenate and minify all the required files.
 * Edit `run_sunflower.sh` script, inside you will find following variables (starred entries should be changed):
     + `APP_NAME` - name of the application
