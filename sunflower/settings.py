@@ -101,6 +101,7 @@ TEMPLATE_CONTEXT_PROCESSORS += (
 STATIC_URL = '/static/'
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.realpath(os.path.join(ROOT_DIR, "media"))
+STATIC_ROOT = os.path.realpath(os.path.join(ROOT_DIR, "staticfiles"))
 LOGIN_URL = "/login/"
 LOGIN_REDIRECT_URL = "/login"
 

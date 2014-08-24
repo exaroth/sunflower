@@ -1,3 +1,4 @@
+#!/bin/bash
 DJANGO_DIR=/Users/konrad/Repositories/sunflower/sunflower
 DJANGO_SETTINGS_MODULE=sunflower.settings
 

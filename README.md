@@ -63,7 +63,7 @@ memcached -d -p 11211
 
 * Execute `run_dev_server.sh`:
 ```shell
-sh run_dev_server.sh
+./run_dev_server.sh
 ```
 This will start django dev server along with grunt and will compile less and refresh browser each time you make any changes to html, js or less files.
 
@@ -77,15 +77,17 @@ This assumes you're using Nginx as a http server and Gunicorn as WSGI one.
 * Define database backend inside `settings.py` - see [relevant entry](https://docs.djangoproject.com/en/dev/ref/databases/) in Django documentation for details.
 * Execute `python manage.py syncdb`.
 * Go to `static/` folder and execute `grunt build` if you have made any changes to css or javascript, this will compile, concatenate and minify all the required files.
+* Run 'python manage collectstatic' for the admin panel static files to be included in `static` folder
 * Edit `run_sunflower.sh` script, inside you will find following variables (starred entries should be changed):
     + `APP_NAME` - name of the application
     + *`DJANGO_DIR` - absolute path to the project
+	+ *`USER` - define user account gunicorn process wil be wunning as (preferably `www-data`)
     + *`SOCKET_FILE` - absolute path to unix socket file to be used with `bind` flag when running gunicorn server
     + `NUM_WORKERS` - number of workers to be used by gunicorn
     + `DJANGO_SETTINGS_MODULE` - string denoting settings.py module inside the app
     + `DJANGO_WSGI_MODULE` - same as above but for wsgi module
 
-* Then configure Nginx server to use gunicorn as reverse proxy. You can find example configuration that works fairly well in [Gunicorn documentation](http://gunicorn-docs.readthedocs.org/en/latest/deploy.html).
+* Then configure Nginx server to use gunicorn as reverse proxy. You can find example configuration that works fairly well in [Gunicorn documentation](http://gunicorn-docs.readthedocs.org/en/latest/deploy.html). Be sure to add proper aliases for `static` and `media` directories as files inside are served straight from hdd.
 * Finally run memcached, execute `run_sunflower.sh` and restart Nginx with new configuration and you're set to go.
 
 ## Software used:
