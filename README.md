@@ -69,7 +69,7 @@ This will start django dev server along with grunt and will compile less and ref
 ### Running production server
 
 This assumes you're using Nginx as a http server and Gunicorn as WSGI one.
-
+* Install gunicorn inside virtualenv and add it to `INSTALLED_APPS` in settings.py
 * **IMPORTANT** Change `SECRET_KEY` value to anything you like.
 * Add your hostname into `ALLOWED_HOSTS` list
 * Define database backend inside `settings.py` - see [relevant entry](https://docs.djangoproject.com/en/dev/ref/databases/) in Django documentation for details.
