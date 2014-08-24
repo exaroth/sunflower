@@ -8,10 +8,10 @@ from imagekit.processors import ResizeToFit, AddBorder, SmartResize
 from imagekit import ImageSpec, register
 from imagekit.utils import get_field_info
 from django.forms.models import model_to_dict
-from south.modelsinspector import add_introspection_rules
+# from south.modelsinspector import add_introspection_rules
 
 
-add_introspection_rules([], [r"core.\thumb.\ImageSpecField"])
+# add_introspection_rules([], [r"core.\thumb.\ImageSpecField"])
 
 # Create your models here.
 
