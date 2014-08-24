@@ -24,7 +24,7 @@ ROOT_DIR = os.path.realpath(os.path.join(BASE_DIR, os.path.pardir))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'super_secret'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = True
 
 TEMPLATE_DIRS = (
@@ -101,7 +101,8 @@ TEMPLATE_CONTEXT_PROCESSORS += (
 STATIC_URL = '/static/'
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.realpath(os.path.join(ROOT_DIR, "media"))
-STATIC_ROOT = os.path.realpath(os.path.join(ROOT_DIR, "staticfiles"))
+STATIC_ROOT = os.path.realpath(os.path.join(ROOT_DIR, "static_root"))
+ADMIN_MEDIA_PREFIX = "/static/admin/"
 LOGIN_URL = "/login/"
 LOGIN_REDIRECT_URL = "/login"
 

@@ -16,7 +16,7 @@ develop-eggs
 node_modules
 bower_components
 errors.log
-staticfiles
+static_root
 
 # Installer logs
 pip-log.txt
