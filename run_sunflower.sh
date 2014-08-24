@@ -6,7 +6,7 @@ SOCKET_FILE=/Users/konrad/Repositories/sunflower/sunflower/run/gunicorn.sock
 NUM_WORKERS=3
 DJANGO_SETTINGS_MODULE=sunflower.settings
 DJANGO_WSGI_MODULE=sunflower.wsgi
-USER=root
+USER=konrad
 
 echo "Running sunflower as `whoami`"
 
