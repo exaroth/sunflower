@@ -18,6 +18,7 @@ export PYTHONPATH=$DJANGODIR:$PYTHONPATH
 export DJANGO_DEBUG_VAR=0
 RUNDIR=$(dirname $SOCKET_FILE)
 test -d $RUNDIR || mkdir -p $RUNDIR
+test -d logs || mkdir -p logs
 
 exec ../bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
 	--name $APP_NAME \
