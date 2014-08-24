@@ -24,7 +24,7 @@ ROOT_DIR = os.path.realpath(os.path.join(BASE_DIR, os.path.pardir))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'super_secret'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = True
 
 TEMPLATE_DIRS = (

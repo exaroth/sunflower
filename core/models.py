@@ -24,7 +24,7 @@ class ImageThumbnail(ImageSpec):
     @property
     def processors(self):
         model, field = get_field_info(self.source)
-        return [ResizeToFit(400)]
+        return [ResizeToFit(300)]
 
 register.generator("core:image:image_thumbnail", ImageThumbnail)
 
