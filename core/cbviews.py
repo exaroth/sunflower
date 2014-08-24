@@ -236,8 +236,11 @@ class ImageDeleteView(DeleteView):
         return super(ImageDeleteView, self).dispatch(*args, **kwargs)
 
     def get_success_url(self):
-
         return reverse_lazy("account_info", kwargs={"username": self.request.user.username})
+
+    def delete(self, request, *args, **kwargs):
+        cache.clear()
+        return super(ImageDeleteView, self).delete(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
 
