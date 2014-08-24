@@ -1,5 +1,5 @@
 #!/bin/bash
-DJANGO_DIR=/Users/konrad/Repositories/sunflower/sunflower
+DJANGO_DIR=/path/to/project/dir
 DJANGO_SETTINGS_MODULE=sunflower.settings
 
 cd $DJANGO_DIR
