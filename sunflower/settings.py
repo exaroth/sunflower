@@ -22,7 +22,6 @@ if "DJANGO_DEBUG_VAR" in os.environ.keys():
 else:
     DJANGO_DEBUG_VAR = 0
 
-print DJANGO_DEBUG_VAR
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
@@ -30,7 +29,6 @@ print DJANGO_DEBUG_VAR
 SECRET_KEY = 'super_secret'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(DJANGO_DEBUG_VAR)
-print DEBUG
 TEMPLATE_DEBUG = False
 
 TEMPLATE_DIRS = (

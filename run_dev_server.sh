@@ -8,7 +8,7 @@ source ../bin/activate
 
 export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
 export PYTHONPATH=$DJANGODIR:$PYTHONPATH
-export DJANGO_DEBUG_VAR=0
+export DJANGO_DEBUG_VAR=1
 
 exec python manage.py runserver &
 
