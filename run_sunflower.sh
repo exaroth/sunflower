@@ -17,7 +17,7 @@ export PYTHONPATH=$DJANGODIR:$PYTHONPATH
 RUNDIR=$(dirname $SOCKET_FILE)
 test -d $RUNDIR || mkdir -p $RUNDIR
 
-exec sudo ../bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
+exec ../bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
 	--name $APP_NAME \
 	--user $USER \
 	--bind unix:$SOCKET_FILE \
