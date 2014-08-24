@@ -22,6 +22,7 @@ from django.views.generic import(
     FormView, DeleteView, CreateView,
     View
 ) 
+import logging
 
 from .models import Image, UserProfile
 from .forms import (
@@ -31,6 +32,7 @@ from .forms import (
 ) 
 
 cache = get_cache("default")
+logger = logging.getLogger(__name__)
 
 
 class IndexView(TemplateView):
@@ -374,10 +376,10 @@ class JSONAccountImageView(JSONResponseView, View):
         cached_data_name = "account_images_{0}".format(self.kwargs["pk"])
         cached_images = cache.get(cached_data_name)
         if cached_images:
-            print "cached"
+            logger.error("images cached: {0}".format(cached_data_name))
             result["data"] = cached_images
         else:
-            print "not cached"
+            logger.error("images not cached")
             object_list = self.get_object().queryset_to_list(self.json_fields)
             cache.set(cached_data_name, object_list, 2*60)
             result["data"] = object_list

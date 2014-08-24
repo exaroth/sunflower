@@ -10,11 +10,11 @@ module.exports = function(grunt) {
 
 			accountjs: {
 				options: {
-					separator: ";"
+					separator: ";",
 				},
 				src: [
 					"bower_components/salvattore/dist/salvattore.js",
-					"js/index.js"
+					"js/account.js"
 				],
 				dest: "js/account.concat.js"
 			},

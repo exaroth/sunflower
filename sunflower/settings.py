@@ -17,15 +17,21 @@ import os
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 ROOT_DIR = os.path.realpath(os.path.join(BASE_DIR, os.path.pardir))
 
+if "DJANGO_DEBUG_VAR" in os.environ.keys():
+    DJANGO_DEBUG_VAR = int(os.environ.get('DJANGO_DEBUG_VAR', 0 ))
+else:
+    DJANGO_DEBUG_VAR = 0
 
+print DJANGO_DEBUG_VAR
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'super_secret'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-TEMPLATE_DEBUG = True
+DEBUG = bool(DJANGO_DEBUG_VAR)
+print DEBUG
+TEMPLATE_DEBUG = False
 
 TEMPLATE_DIRS = (
     os.path.realpath(os.path.join(ROOT_DIR, "templates")),
@@ -36,7 +42,7 @@ STATICFILES_DIRS = (
 )
 
 ALLOWED_HOSTS = [
-     "localhost",
+    "localhost",
 ]
 
 
@@ -111,4 +117,26 @@ CACHES = {
         "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
         "LOCATION": "127.0.0.1:11211"
     }
+}
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.realpath(os.path.join(ROOT_DIR, "logs/django.log")),
+        },
+
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+
+        },
+
+    },
+
 }

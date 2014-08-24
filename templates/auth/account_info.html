@@ -49,6 +49,7 @@
 {% endblock %}
 
 {% block js %}
+
 {{ block.super }}
 
 {% if DEBUG %}
@@ -57,7 +58,9 @@
 	<script src="{% static 'js/account.js' %}"></script>
 
 {% else %}
-<script src="{% static 'js/account.min.js' %}"></script>
+
+	<script src="{% static 'js/account.min.js' %}"></script>
+
 {% endif %}
 
 
