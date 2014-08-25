@@ -40,7 +40,7 @@ class UserProfile(models.Model):
                                  options={"quality": 80})
 
     def delete(self, *args, **kwargs):
-        self.avarar.delete(False)
+        self.avatar.delete(False)
         super(UserProfile, self).delete(*args, **kwargs)
 
     def __unicode__(self):
