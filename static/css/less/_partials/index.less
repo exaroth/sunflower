@@ -22,14 +22,30 @@
 
 .image-container {
 	margin-bottom: 20px;
+	overflow: hidden;
+	max-height: 400px;
+	@media screen and (max-width: @sm){
+		margin: 20px;
+		max-height: 200px;
+}
+}
+#site-title {
+	@media screen and (max-width: @sm){
+		text-align: center;
+		width: 100%;
+}
 }
 
 #index-wrapper {
 	margin-top: 60px;
 	position: relative;
 }
+
 #index-image-grid[data-columns]:before {
 	content: '3 .column.size-1of3';
+	@media (max-width: @sm){
+		 content: '2 .column.size-1of2';
+}
 }
 .index-img-open {
 	 display: block;
@@ -89,14 +105,7 @@
 	  display: none;
 }
 
-.column {
-   	float: left;
-  }
 
-.size-1of3 {
-   	width: 22%;
-	padding: 0 10px;
- }
 
 .md-overlay {
 	position: fixed;
